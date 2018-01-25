@@ -50,16 +50,16 @@ class App extends React.Component {
       if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
-        return updatedTiles
       } else {
       _.delay(() => {
         console.log("delay");
         updatedTiles[loc].selected = false;
         updatedTiles[prevTile].selected = false;
-        return updatedTiles;
-      }, 1000);
+      }, 10);
+      console.log("end delay");
     }
     }
+    return updatedTiles;
   }
 
   resetGame() {
