@@ -190,14 +190,16 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        {this.state.tiles.map((tile) => {
-          return (<Tile
-            value={tile.value}
-            found={tile.found}
-            selected={tile.selected}
-            onClick={this.updateGame.bind(this)}
-            /> )
-          })}
+        <div className="row">
+          {this.state.tiles.map((tile) => {
+            return (<Tile
+              value={tile.value}
+              found={tile.found}
+              selected={tile.selected}
+              onClick={this.updateGame.bind(this)}
+              /> )
+            })}
+        </div>
         <Clicks clickNum={this.state.clicks}/>
         <ResetButton reset={this.resetGame.bind(this)}/>
       </div>
