@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 
 export default function run_demo(root) {
-  ReactDOM.render(<Grid />, root);
+  ReactDOM.render(<App />, root);
 }
 
 /*class Demo extends React.Component {
