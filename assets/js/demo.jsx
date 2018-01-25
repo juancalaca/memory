@@ -218,7 +218,7 @@ class App extends React.Component {
 
 function Tile(props) {
   return (
-    <div className="col card" >
+    <div className="col-3 card" >
       {props.value}
     </div>
   );
