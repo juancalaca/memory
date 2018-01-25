@@ -152,42 +152,59 @@ function GuessInput(params) {
   </div>;
 }*/
 
-let containerStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gridGap: '10',
-    width: '500',
-    height: '500'
-  };
-
-let tileStyle = {
-    backgroundColor: 'red',
-    width: '10',
-    height: '10',
-    alignSelf: 'center',
-    verticalAlign: 'center',
-    lineHeight: '10'
-  };
-
-class Grid extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
+    let letters = [D, A, G, D, A, F, E, C, C, G, H, E, B, F, B, H];
+    let tiles = _.map(letters, (value) => {
+      return {
+        value: {value},
+        found: false,
+        selected: false
+      }
+    });
+
     this.state = ({
-      text: [1,2,3,4,5,6,7,8,9,10]
+      tiles: tiles,
+      turn: 0,
+      clicks: 0,
     });
   }
-  
+
+  updateGame(loc, turn) {
+
+  }
+
+  resetGame() {
+
+  }
+
+  incrementClicks() {
+    this.setState({
+      clicks: this.state.clicks++
+    });
+  }
 
   render() {
     return (
       <div>
-        <CreateTiles text={this.state.text} />
+        {this.state.tiles.map((tile) => {
+          return (<Tile
+            value={tile.value}
+            found={tile.found}
+            selected={tile.selected}
+            onClick={this.updateGame.bind(this)}
+            /> )
+          });
+        }
+        <Clicks clickNum={this.state.clicks}/>
+        <ResetButton reset={this.resetGame.bind(this)}/>
       </div>
     );
   }
 }
 
-function CreateTiles(props) {
+/*function CreateTiles(props) {
   let tiles = _.map(props.text, (xx, ii) => {
      return <div key={ii} style={tileStyle}>{xx + " " + ii}</div>;
      });
@@ -196,4 +213,26 @@ function CreateTiles(props) {
         {tiles}
       </div>
     );
+}*/
+
+function Tile(props) {
+  return (
+    <div className={"tile " + this.props.found + " " + this.props.selected} >
+      {this.props.value}
+    </div>
+  );
+}
+
+function ResetButton(props) {
+  return (
+    <button id="reset" onClick={this.props.reset} >
+      Reset Game
+    </button>
+  );
+}
+
+function Clicks(props) {
+  return (
+    <div id="clicks">{this.props.clickNum}</div>
+  );
 }
