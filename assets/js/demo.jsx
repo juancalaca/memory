@@ -174,7 +174,7 @@ class App extends React.Component {
   }
 
   updateGame(loc, turn) {
-
+    incrementClicks();
   }
 
   resetGame() {
