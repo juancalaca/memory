@@ -93,8 +93,10 @@ class App extends React.Component {
               /> )
             })}
         </div>
-        <Clicks clickNum={this.state.clicks}/>
-        <ResetButton reset={this.resetGame.bind(this)}/>
+        <div className="row">
+          <Clicks clickNum={this.state.clicks}/>
+          <ResetButton reset={this.resetGame.bind(this)}/>
+        </div>
       </div>
     );
   }
@@ -123,7 +125,7 @@ function Tile(props) {
 
 function ResetButton(props) {
   return (
-    <button type="button" className="btn btn-primary" onClick={props.reset} >
+    <button type="button" className="btn btn-primary col-6" onClick={props.reset} >
       Reset Game
     </button>
   );
@@ -131,6 +133,6 @@ function ResetButton(props) {
 
 function Clicks(props) {
   return (
-    <div id="clicks">{props.clickNum}</div>
+    <div id="clicks" className="col">{props.clickNum}</div>
   );
 }
