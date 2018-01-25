@@ -27,6 +27,7 @@ class App extends React.Component {
   }
 
   updateGame(loc) {
+    console.log("clicked");
     let clicks = this.state.clicks + 1;
     let updatedTiles = this.updateTiles(loc);
     let prevTile = this.state.prevTile === null ? loc : null;
