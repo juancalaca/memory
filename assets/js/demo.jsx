@@ -104,7 +104,7 @@ function Tile(props) {
   let loc = props.loc;
   let cardStyle;
   let value = props.value;
-  if (props.selected) {
+  if (props.selected && !props.found) {
     cardStyle = "bg-danger";
   } else if (props.found) {
     cardStyle = "bg-success";
