@@ -31,11 +31,11 @@ class App extends React.Component {
     let clicks = this.state.clicks + 1;
     let updatedTiles = this.updateTiles(loc);
     let prevTile = this.state.prevTile === null ? loc : null;
-    this.setState(
+    this.setState({
       tiles: updatedTiles,
       clicks: clicks,
       prevTile: prevTile
-    );
+    });
 
     //this.setState(this.state);
     //console.log(this.state);
