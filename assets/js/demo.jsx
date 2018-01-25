@@ -27,26 +27,32 @@ class App extends React.Component {
   }
 
   updateGame(loc) {
-    this.incrementClicks();
-    this.state.tiles[loc].selected = true;
-
-    if (this.state.prevTile == null) {
-      this.setState({
-        prevTile: loc
-      })
-      return;
-    } else {
-      if (this.state.prevTile.value === this.state.tiles[loc].value) {
-        this.state.prevTile.found = true;
-        this.state.tiles[loc].found = true;
-      }
-      this.state.prevTile.selected = false;
-      this.state.tiles[loc].selected = false;
-      this.state.prevTile = null;
-    }
+    let clicks = this.state.clicks + 1;
+    let updatedTiles = this.updateTiles(loc);
+    let prevTile = this.state.prevTile === null ? loc : null;
+    this.setState(
+      tiles: updatedTiles,
+      clicks: clicks,
+      prevTile: prevTile
+    );
 
     //this.setState(this.state);
     //console.log(this.state);
+  }
+
+  updateTiles(loc) {
+    let updatedTiles = this.state.tiles;
+    updatedTiles[loc].selected = true;
+    if (this.state.prevTile !== null) {
+      if (updatedTiles[loc].value === updatedTiles[this.state.prevTile].value) {
+        updatedTiles[loc].found = true;
+        updatedTiles[this.state.prevTile].found = true;
+      } else {
+        updatedTiles[loc].selected = false;
+        updatedTiles[this.state.prevTile].selected = false;
+      }
+    }
+    return updateTiles;
   }
 
   resetGame() {
