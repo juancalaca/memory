@@ -49,10 +49,11 @@ class App extends React.Component {
         updatedTiles[loc].found = true;
         updatedTiles[this.state.prevTile].found = true;
       }
-      _.delay(1000, () => {
+      _.delay(() => {
+        console.log("delay");
         updatedTiles[loc].selected = false;
         updatedTiles[this.state.prevTile].selected = false;
-      });
+      }, 1000);
     }
     return updatedTiles;
   }
