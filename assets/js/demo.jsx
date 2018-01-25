@@ -11,8 +11,9 @@ class App extends React.Component {
     super(props);
     let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
     letters = _.shuffle(letters);
-    let tiles = _.map(letters, (value) => {
+    let tiles = _.map(letters, (value, ii) => {
       return {
+        key: ii,
         value: value,
         found: false,
         selected: false
@@ -46,7 +47,7 @@ class App extends React.Component {
     updatedTiles[loc].selected = true;
     let prevTile = this.state.prevTile;
     if (prevTile !== null) {
-      if (updatedTiles[loc].value === updatedTiles[prevTile].value) {
+      if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !=== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
       }
@@ -54,7 +55,7 @@ class App extends React.Component {
         console.log("delay");
         updatedTiles[loc].selected = false;
         updatedTiles[prevTile].selected = false;
-      }, 1000);
+      }, 10);
     }
     return updatedTiles;
   }
