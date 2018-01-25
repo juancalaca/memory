@@ -195,8 +195,7 @@ class App extends React.Component {
             selected={tile.selected}
             onClick={this.updateGame.bind(this)}
             /> )
-          });
-        }
+          })}
         <Clicks clickNum={this.state.clicks}/>
         <ResetButton reset={this.resetGame.bind(this)}/>
       </div>
