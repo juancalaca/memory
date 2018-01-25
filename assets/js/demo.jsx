@@ -7,11 +7,11 @@ export default function run_demo(root) {
 }
 
 class App extends React.Component {
+  let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
   constructor(props) {
     super(props);
-    let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
-    letters = this.shuffleArray(letters);
-    let tiles = _.map(letters, (value) => {
+    this.letters = this.shuffleArray(this.letters);
+    let tiles = _.map(this.letters, (value) => {
       return {
         value: value,
         found: false,
@@ -21,7 +21,6 @@ class App extends React.Component {
 
     this.state = ({
       tiles: tiles,
-      turn: 0,
       clicks: 0,
       prevTile: null
     });
@@ -41,8 +40,9 @@ class App extends React.Component {
   }
 
   updateGame(loc) {
-    this.state.clicks = this.state.clicks + 1;
+    this.incrementClicks();
     this.state.tiles[loc].selected = true;
+
     if (this.state.prevTile == null) {
       this.state.prevTile = this.state.tiles[loc];
     } else {
@@ -54,12 +54,25 @@ class App extends React.Component {
       this.state.tiles[loc].selected = false;
       this.state.prevTile = null;
     }
+
     this.setState(this.state);
     console.log(this.state);
   }
 
   resetGame() {
-
+    this.letters = this.shuffleArray(this.letters);
+    let tiles = _.map(this.letters, (value) => {
+      return {
+        value: value,
+        found: false,
+        selected: false
+      }
+    });
+    this.setState({
+      tiles: tiles,
+      prevTile: null,
+      clicks: 0
+    });
   }
 
   incrementClicks() {
