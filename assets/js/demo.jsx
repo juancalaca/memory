@@ -217,7 +217,7 @@ class App extends React.Component {
 function Tile(props) {
   return (
     <div className={"tile " + props.found + " " + props.selected} >
-      {props.value}
+      {props.value.toString()}
     </div>
   );
 }
