@@ -158,17 +158,19 @@ class App extends React.Component {
     let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
     let tiles = _.map(letters, (value) => {
       return {
-        value: {value},
+        value: value,
         found: false,
         selected: false
       }
     });
 
+    console.log(tiles);
     this.state = ({
       tiles: tiles,
       turn: 0,
       clicks: 0,
     });
+    console.log(this.state);
   }
 
   updateGame(loc, turn) {
@@ -217,7 +219,7 @@ class App extends React.Component {
 function Tile(props) {
   return (
     <div className={"tile " + props.found + " " + props.selected} >
-      {props.value.toString()}
+      {props.value}
     </div>
   );
 }
