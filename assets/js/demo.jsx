@@ -47,7 +47,7 @@ class App extends React.Component {
     updatedTiles[loc].selected = true;
     let prevTile = this.state.prevTile;
     if (prevTile !== null) {
-      if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !=== updatedTiles[prevTile].key) {
+      if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
       }
@@ -56,6 +56,7 @@ class App extends React.Component {
         updatedTiles[loc].selected = false;
         updatedTiles[prevTile].selected = false;
       }, 10);
+      console.log("end delay");
     }
     return updatedTiles;
   }
