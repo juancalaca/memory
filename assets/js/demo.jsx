@@ -10,6 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
+    letters = this.shuffleArray(letters);
     let tiles = _.map(letters, (value) => {
       return {
         value: value,
@@ -24,6 +25,19 @@ class App extends React.Component {
       clicks: 0,
       prevTile: null
     });
+  }
+
+  //TODO: Provide attribution
+  shuffleArray(array) {
+    let i, j;
+    let n = array.length;
+    for(i = 0; i < n - 1; ++i) {
+      j = Math.floor(Math.random() * (n - 1));
+      let temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
   }
 
   updateGame(loc) {
@@ -75,17 +89,6 @@ class App extends React.Component {
     );
   }
 }
-
-/*function CreateTiles(props) {
-  let tiles = _.map(props.text, (xx, ii) => {
-     return <div key={ii} style={tileStyle}>{xx + " " + ii}</div>;
-     });
-    return (
-      <div style={containerStyle}>
-        {tiles}
-      </div>
-    );
-}*/
 
 function Tile(props) {
   let loc = props.loc;
