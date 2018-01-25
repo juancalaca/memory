@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props);
     let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
     letters = this.shuffleArray(letters);
-    let tiles = _.map(this.letters, (value) => {
+    let tiles = _.map(letters, (value) => {
       return {
         value: value,
         found: false,
