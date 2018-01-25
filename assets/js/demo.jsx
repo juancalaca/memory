@@ -44,15 +44,16 @@ class App extends React.Component {
   updateTiles(loc) {
     let updatedTiles = this.state.tiles;
     updatedTiles[loc].selected = true;
-    if (this.state.prevTile !== null) {
-      if (updatedTiles[loc].value === updatedTiles[this.state.prevTile].value) {
+    let prevTile = this.state.prevTile;
+    if (prevTile !== null) {
+      if (updatedTiles[loc].value === updatedTiles[prevTile].value) {
         updatedTiles[loc].found = true;
-        updatedTiles[this.state.prevTile].found = true;
+        updatedTiles[prevTile].found = true;
       }
       _.delay(() => {
         console.log("delay");
         updatedTiles[loc].selected = false;
-        updatedTiles[this.state.prevTile].selected = false;
+        updatedTiles[prevTile].selected = false;
       }, 1000);
     }
     return updatedTiles;
