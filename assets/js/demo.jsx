@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   updateGame(loc) {
-    this.incrementClicks();
+    this.state.clicks = this.state.clicks + 1;
     this.state.tiles[loc].selected = true;
     if (this.state.prevTile == null) {
       this.state.prevTile = this.state.tiles[loc];
@@ -90,6 +90,7 @@ class App extends React.Component {
 function Tile(props) {
   let loc = props.loc;
   let cardStyle;
+  let value = props.value;
   if (props.selected) {
     cardStyle = "bg-danger";
   } else if (props.found) {
@@ -99,9 +100,9 @@ function Tile(props) {
   }
 
   return (
-    <div className={"col-3 card " + cardStyle} key={loc} onClick={() => props.click(loc)} >
+    <div className={"col-3 card " + cardStyle} key={loc} onClick={() => props.click(loc)} style={{width: "100"}} >
       <div>
-        {props.value}
+        {value}
       </div>
     </div>
   );
