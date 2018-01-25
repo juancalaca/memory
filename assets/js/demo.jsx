@@ -189,7 +189,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         {this.state.tiles.map((tile) => {
           return (<Tile
             value={tile.value}
@@ -218,7 +218,7 @@ class App extends React.Component {
 
 function Tile(props) {
   return (
-    <div className={"tile " + props.found + " " + props.selected} >
+    <div className="col card" >
       {props.value}
     </div>
   );
