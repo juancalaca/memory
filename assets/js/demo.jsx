@@ -164,16 +164,15 @@ class App extends React.Component {
       }
     });
 
-    console.log(tiles);
     this.state = ({
       tiles: tiles,
       turn: 0,
       clicks: 0,
     });
-    console.log(this.state);
   }
 
   updateGame(loc, turn) {
+    console.log("clicked");
     incrementClicks();
   }
 
