@@ -168,12 +168,25 @@ class App extends React.Component {
       tiles: tiles,
       turn: 0,
       clicks: 0,
+      prevTile: null
     });
   }
 
-  updateGame(loc, turn) {
-    console.log("clicked");
-    incrementClicks();
+  updateGame(loc) {
+    this.incrementClicks();
+    this.state.tiles[loc].selected = true;
+    if (this.state.prevTile == null) {
+      this.state.prevTile = this.state.tiles[loc];
+    } else {
+      if (this.state.prevTile.value === this.state.tiles[loc].value) {
+        this.state.prevTile.found = true;
+        this.state.tiles[loc].found = true;
+      }
+      this.state.prevTile.selected = false;
+      this.state.tiles[loc].selected = false;
+      this.state.prevTile = null;
+    }
+    console.log(this.state);
   }
 
   resetGame() {
@@ -182,7 +195,7 @@ class App extends React.Component {
 
   incrementClicks() {
     this.setState({
-      clicks: this.state.clicks++
+      clicks: this.state.clicks + 1
     });
   }
 
@@ -190,12 +203,14 @@ class App extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          {this.state.tiles.map((tile) => {
+          {_.map(this.state.tiles, (tile, ii) => {
             return (<Tile
+              key={ii}
+              loc={ii}
               value={tile.value}
               found={tile.found}
               selected={tile.selected}
-              onClick={this.updateGame.bind(this)}
+              click={this.updateGame.bind(this)}
               /> )
             })}
         </div>
@@ -218,8 +233,9 @@ class App extends React.Component {
 }*/
 
 function Tile(props) {
+  let loc = props.loc;
   return (
-    <div className="col-3 card" >
+    <div className="col-3 card" key={loc} onClick={() => props.click(loc)} >
       {props.value}
     </div>
   );
