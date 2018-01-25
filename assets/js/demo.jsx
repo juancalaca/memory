@@ -216,15 +216,15 @@ class App extends React.Component {
 
 function Tile(props) {
   return (
-    <div className={"tile " + this.props.found + " " + this.props.selected} >
-      {this.props.value}
+    <div className={"tile " + props.found + " " + props.selected} >
+      {props.value}
     </div>
   );
 }
 
 function ResetButton(props) {
   return (
-    <button id="reset" onClick={this.props.reset} >
+    <button id="reset" onClick={props.reset} >
       Reset Game
     </button>
   );
@@ -232,6 +232,6 @@ function ResetButton(props) {
 
 function Clicks(props) {
   return (
-    <div id="clicks">{this.props.clickNum}</div>
+    <div id="clicks">{props.clickNum}</div>
   );
 }
