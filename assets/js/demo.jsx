@@ -10,7 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
-    this.letters = this.shuffleArray(this.letters);
+    letters = this.shuffleArray(letters);
     let tiles = _.map(this.letters, (value) => {
       return {
         value: value,
