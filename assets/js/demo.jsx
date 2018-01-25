@@ -10,7 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
-    letters = this.shuffleArray(letters);
+    letters = _.shuffle(letters);
     let tiles = _.map(letters, (value) => {
       return {
         value: value,
@@ -26,25 +26,15 @@ class App extends React.Component {
     });
   }
 
-  //TODO: Provide attribution
-  shuffleArray(array) {
-    let i, j;
-    let n = array.length;
-    for(i = 0; i < n - 1; ++i) {
-      j = Math.floor(Math.random() * (n - 1));
-      let temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-  }
-
   updateGame(loc) {
     this.incrementClicks();
     this.state.tiles[loc].selected = true;
 
     if (this.state.prevTile == null) {
-      this.state.prevTile = this.state.tiles[loc];
+      this.setState({
+        prevTile: loc;
+      })
+      return;
     } else {
       if (this.state.prevTile.value === this.state.tiles[loc].value) {
         this.state.prevTile.found = true;
@@ -55,13 +45,13 @@ class App extends React.Component {
       this.state.prevTile = null;
     }
 
-    this.setState(this.state);
-    console.log(this.state);
+    //this.setState(this.state);
+    //console.log(this.state);
   }
 
   resetGame() {
     let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
-    letters = this.shuffleArray(letters);
+    letters = _.shuffle(letters);
     let tiles = _.map(letters, (value) => {
       return {
         value: value,
@@ -76,11 +66,11 @@ class App extends React.Component {
     });
   }
 
-  incrementClicks() {
+  /*incrementClicks() {
     this.setState({
       clicks: this.state.clicks + 1
     });
-  }
+  }*/
 
   render() {
     return (
