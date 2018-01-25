@@ -155,7 +155,7 @@ function GuessInput(params) {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    let letters = [D, A, G, D, A, F, E, C, C, G, H, E, B, F, B, H];
+    let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
     let tiles = _.map(letters, (value) => {
       return {
         value: {value},
