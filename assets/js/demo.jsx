@@ -32,7 +32,7 @@ class App extends React.Component {
 
     if (this.state.prevTile == null) {
       this.setState({
-        prevTile: loc;
+        prevTile: loc
       })
       return;
     } else {
