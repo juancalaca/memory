@@ -53,7 +53,7 @@ class App extends React.Component {
         updatedTiles[this.state.prevTile].selected = false;
       }
     }
-    return updateTiles;
+    return updatedTiles;
   }
 
   resetGame() {
