@@ -37,6 +37,7 @@ class App extends React.Component {
       clicks: clicks,
       prevTile: prevTile
     });
+    this.sleep(1000);
 
     //this.setState(this.state);
     //console.log(this.state);
@@ -51,11 +52,9 @@ class App extends React.Component {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
       } else {
-        this.sleep(1000);
-        console.log("delay");
         updatedTiles[loc].selected = false;
         updatedTiles[prevTile].selected = false;
-    }
+      }
     }
     return updatedTiles;
   }
