@@ -39,7 +39,7 @@ class App extends React.Component {
     let prevTile = this.state.prevTile === null ? loc : null;
     if (this.state.prevTile !== null) {
       this.sleep(1000);
-      this.clearSelect(updatedTiles, loc, prevTile);
+      this.clearSelect(updatedTiles, loc, this.state.prevTile);
       this.setState({
         tiles: updatedTiles,
         clicks: clicks,
