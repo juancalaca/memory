@@ -37,6 +37,9 @@ class App extends React.Component {
       clicks: clicks,
       prevTile: prevTile
     });
+
+    //this.setState(this.state);
+    //console.log(this.state);
   }
 
   updateTiles(loc) {
@@ -44,8 +47,7 @@ class App extends React.Component {
     updatedTiles[loc].selected = true;
     let prevTile = this.state.prevTile;
     if (prevTile !== null) {
-      if (updatedTiles[loc].value === updatedTiles[prevTile].value &&
-        updatedTiles[loc].key !== updatedTiles[prevTile].key) {
+      if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
       } else {
@@ -63,8 +65,9 @@ class App extends React.Component {
   resetGame() {
     let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
     letters = _.shuffle(letters);
-    let tiles = _.map(letters, (value) => {
+    let tiles = _.map(letters, (value, ii) => {
       return {
+        key: ii,
         value: value,
         found: false,
         selected: false
@@ -76,6 +79,12 @@ class App extends React.Component {
       clicks: 0
     });
   }
+
+  /*incrementClicks() {
+    this.setState({
+      clicks: this.state.clicks + 1
+    });
+  }*/
 
   render() {
     return (
@@ -111,14 +120,15 @@ function Tile(props) {
     cardStyle = "bg-success";
   } else {
     cardStyle = "bg-dark";
+    value= " ";
   }
 
   return (
-    <div className={"col-3 card " + cardStyle} key={loc} onClick={() => props.click(loc)} style={{width: "100"}} >
-      <div>
+   <div className="col-3" >
+    <div className={"card " + cardStyle} onClick={() => props.click(loc)} style={{"margin": "5px", "height": "75px", "width": "75px", "textAlign": "center", "verticalAlign": "center", "lineHeight": "75px"}} >
         {value}
-      </div>
     </div>
+   </div>
   );
 }
 
@@ -132,6 +142,6 @@ function ResetButton(props) {
 
 function Clicks(props) {
   return (
-    <div id="clicks" className="col">{props.clickNum}</div>
+    <div id="clicks" className="col">{"Total clicks: " + props.clickNum}</div>
   );
 }
