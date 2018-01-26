@@ -31,13 +31,21 @@ class App extends React.Component {
     console.log("clicked");
     let clicks = this.state.clicks + 1;
     let updatedTiles = this.updateTiles(loc);
-    let prevTile = this.state.prevTile === null ? loc : null;
     this.setState({
       tiles: updatedTiles,
       clicks: clicks,
       prevTile: prevTile
     });
-    this.sleep(1000);
+    let prevTile = this.state.prevTile === null ? loc : null;
+    if (this.state.prevTile !== null) {
+      this.sleep(1000);
+      this.clearSelect(updatedTiles, loc), prevTile;
+      this.setState({
+        tiles: updatedTiles,
+        clicks: clicks,
+        prevTile: prevTile
+      });
+    }
 
     //this.setState(this.state);
     //console.log(this.state);
@@ -51,12 +59,14 @@ class App extends React.Component {
       if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
-      } else {
-        updatedTiles[loc].selected = false;
-        updatedTiles[prevTile].selected = false;
       }
     }
     return updatedTiles;
+  }
+
+  clearSelect(updatedTiles, loc, prevTile) {
+    updatedTiles[loc].selected = false;
+    updatedTiles[prevTile].selected = false;
   }
 
   sleep(ms) {
