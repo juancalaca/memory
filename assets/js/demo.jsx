@@ -37,9 +37,6 @@ class App extends React.Component {
       clicks: clicks,
       prevTile: prevTile
     });
-
-    //this.setState(this.state);
-    //console.log(this.state);
   }
 
   updateTiles(loc) {
@@ -47,7 +44,8 @@ class App extends React.Component {
     updatedTiles[loc].selected = true;
     let prevTile = this.state.prevTile;
     if (prevTile !== null) {
-      if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
+      if (updatedTiles[loc].value === updatedTiles[prevTile].value &&
+        updatedTiles[loc].key !== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
       } else {
@@ -78,12 +76,6 @@ class App extends React.Component {
       clicks: 0
     });
   }
-
-  /*incrementClicks() {
-    this.setState({
-      clicks: this.state.clicks + 1
-    });
-  }*/
 
   render() {
     return (
