@@ -125,7 +125,7 @@ function Tile(props) {
 
   return (
    <div className="col-3" >
-    <div className={"card " + cardStyle} onClick={() => props.click(loc)} style={{"margin": "5px", "height": "75px", "width": "75px", "textAlign": "center", "verticalAlign": "center", "lineHeight": "75px", "alignSelf" : "center"}} >
+    <div className={"card " + cardStyle} onClick={() => props.click(loc)} style={{"margin": "5px", "height": "75px", "width": "75px", "textAlign": "center", "verticalAlign": "center", "lineHeight": "75px"}} >
         {value}
     </div>
    </div>
