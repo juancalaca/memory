@@ -51,15 +51,20 @@ class App extends React.Component {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
       } else {
-      _.delay(() => {
+        this.sleep(1000);
         console.log("delay");
         updatedTiles[loc].selected = false;
         updatedTiles[prevTile].selected = false;
-      }, 10);
-      console.log("end delay");
     }
     }
     return updatedTiles;
+  }
+
+  sleep(ms) {
+    let timeNow = Date.now();
+    while (Date.now() - timeNow < ms) {
+      //do nothing
+    }
   }
 
   resetGame() {
