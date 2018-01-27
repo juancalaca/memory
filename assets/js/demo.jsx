@@ -133,9 +133,10 @@ class App extends React.Component {
 class Tile extends React.Component {
 
   componentWillUpdate(nextState, nextProps) {
-    if (!nextProps.selected) {
+    console.log(nextProps);
+    /*if (!nextProps.selected) {
       this.sleep(1000);
-    }
+    }*/
   }
 
   sleep(ms) {
