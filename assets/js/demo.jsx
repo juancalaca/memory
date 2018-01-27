@@ -31,6 +31,16 @@ class App extends React.Component {
     console.log('App is going to re-render');
   }
 
+  componentDidUpdate() {
+    let updatedTiles = this.updateTiles(loc);
+    if(this.state.prevTile !== null) {
+      console.log("inner if");
+      this.sleep(1000);
+      updatedTiles[ex].selected = false;
+      updatedTiles[loc].selected = false;
+    }
+  }
+
   updateGame(loc) {
     console.log("clicked");
     let clicks = this.state.clicks + 1;
@@ -38,13 +48,6 @@ class App extends React.Component {
     let prevTile = this.state.prevTile === null ? loc : null;
     let ex = this.state.prevTile;
     this.setStateHelper(updatedTiles, clicks, prevTile);
-
-    if(ex !== null) {
-      console.log("inner if");
-      this.sleep(1000);
-      updatedTiles[ex].selected = false;
-      updatedTiles[loc].selected = false;
-    }
 
     //this.setState(this.state);
     //console.log(this.state);
@@ -56,13 +59,6 @@ class App extends React.Component {
       clicks: clicks,
       prevTile: prevTile
     });
-  }
-
-  sleep(ms) {
-    let now = Date.now();
-    while(Date.now() - now < ms) {
-
-    }
   }
 
   updateTiles(loc) {
@@ -77,6 +73,9 @@ class App extends React.Component {
       if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
+      } else {
+        updatedTiles[loc].selected = false;
+        updatedTiles[prevTile].found = false;
       }
     }
 
@@ -131,8 +130,22 @@ class App extends React.Component {
   }
 }
 
-function Tile(props) {
-  let loc = props.loc;
+class Tile extends React.Component {
+
+  componentWillUpdate(nextState, nextProps) {
+    if (!nextProps.selected) {
+      this.sleep(1000);
+    }
+  }
+
+  sleep(ms) {
+    let now = Date.now();
+    while(Date.now() - now < ms) {
+
+    }
+  }
+
+  render() {  let loc = props.loc;
   let cardStyle;
   let value = props.value;
   if (props.selected && !props.found) {
@@ -151,6 +164,7 @@ function Tile(props) {
     </div>
    </div>
   );
+}
 }
 
 function ResetButton(props) {
