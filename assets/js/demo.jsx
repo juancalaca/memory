@@ -62,8 +62,12 @@ class App extends React.Component {
   }
 
   updateTiles(loc) {
+    console.log(updatedTiles[loc]);
+    console.log(updatedTiles[loc].selected);
     let updatedTiles = this.state.tiles;
     updatedTiles[loc].selected = true;
+    console.log(updatedTiles[loc]);
+    console.log(updatedTiles[loc].selected);
     let prevTile = this.state.prevTile;
     if (prevTile !== null) {
       if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
@@ -71,7 +75,7 @@ class App extends React.Component {
         updatedTiles[prevTile].found = true;
       }
     }
-    
+
     return updatedTiles;
   }
 
