@@ -37,26 +37,26 @@ class App extends React.Component {
     let updatedTiles = this.updateTiles(loc);
     let prevTile = this.state.prevTile === null ? loc : null;
     let ex = this.state.prevTile;
-    this.setState({
-      tiles: updatedTiles,
-      clicks: clicks,
-      prevTile: prevTile
-    });
+    this.setStateHelper(updatedTiles, clicks, prevTile);
 
     if(ex !== null) {
       console.log("inner if");
       this.sleep(1000);
       updatedTiles[ex].selected = false;
       updatedTiles[loc].selected = false;
-      this.setState({
-      tiles: updatedTiles,
-      clicks: clicks,
-      prevTile: prevTile
-      });
+      this.setStateHelper(updatedTiles, clicks, prevTile);
     }
 
     //this.setState(this.state);
     //console.log(this.state);
+  }
+
+  setStateHelper(updatedTiles, clicks, prevTile) {
+    this.setState({
+      tiles: updatedTiles,
+      clicks: clicks,
+      prevTile: prevTile
+    });
   }
 
   sleep(ms) {
