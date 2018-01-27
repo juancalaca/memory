@@ -62,9 +62,9 @@ class App extends React.Component {
   }
 
   updateTiles(loc) {
+    let updatedTiles = this.state.tiles;
     console.log(updatedTiles[loc]);
     console.log(updatedTiles[loc].selected);
-    let updatedTiles = this.state.tiles;
     updatedTiles[loc].selected = true;
     console.log(updatedTiles[loc]);
     console.log(updatedTiles[loc].selected);
