@@ -40,6 +40,7 @@ class App extends React.Component {
     });
 
     if(ex !== null) {
+      console.log("inner if");
       this.sleep(1000);
       updatedTiles[ex].selected = false;
       updatedTiles[loc].selected = false;
