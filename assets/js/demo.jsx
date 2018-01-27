@@ -55,7 +55,10 @@ class App extends React.Component {
         console.log("delay");
         updatedTiles[loc].selected = false;
         updatedTiles[prevTile].selected = false;
-      }, 10);
+        this.setState({
+          tiles : updatedTiles
+        })
+      }, 1000);
       console.log("end delay");
     }
     }
