@@ -32,14 +32,31 @@ class App extends React.Component {
     let clicks = this.state.clicks + 1;
     let updatedTiles = this.updateTiles(loc);
     let prevTile = this.state.prevTile === null ? loc : null;
+    let ex = this.state.prevTile;
     this.setState({
       tiles: updatedTiles,
       clicks: clicks,
       prevTile: prevTile
     });
 
+    if(ex !== null) {
+      this.sleep(1000);
+      this.setState({
+      tiles: updatedTiles,
+      clicks: clicks,
+      prevTile: prevTile
+      });
+    }
+
     //this.setState(this.state);
     //console.log(this.state);
+  }
+
+  sleep(ms) {
+    let now = Date.now();
+    while(Date.now() - now < ms) {
+    
+    }
   }
 
   updateTiles(loc) {
