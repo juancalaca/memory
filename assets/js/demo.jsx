@@ -41,6 +41,8 @@ class App extends React.Component {
 
     if(ex !== null) {
       this.sleep(1000);
+      updatedTiles[ex].selected = false;
+      updatedTiles[loc].selected = false;
       this.setState({
       tiles: updatedTiles,
       clicks: clicks,
@@ -55,7 +57,7 @@ class App extends React.Component {
   sleep(ms) {
     let now = Date.now();
     while(Date.now() - now < ms) {
-    
+
     }
   }
 
@@ -67,13 +69,7 @@ class App extends React.Component {
       if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
-      } else {
-      _.delay(() => {
-        console.log("delay");
-        updatedTiles[loc].selected = false;
-        updatedTiles[prevTile].selected = false;
-      }, 10);
-      console.log("end delay");
+      }
     }
     }
     return updatedTiles;
