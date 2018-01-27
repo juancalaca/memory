@@ -27,7 +27,7 @@ class App extends React.Component {
     });
   }
 
-  componentWillMount() {
+  componentWillUpdate() {
     console.log('App is going to re-render');
   }
 
