@@ -145,12 +145,12 @@ class Tile extends React.Component {
     }
   }
 
-  render() {  let loc = props.loc;
+  render() {  let loc = this.props.loc;
   let cardStyle;
-  let value = props.value;
-  if (props.selected && !props.found) {
+  let value = this.props.value;
+  if (this.props.selected && !this.props.found) {
     cardStyle = "bg-danger";
-  } else if (props.found) {
+  } else if (this.props.found) {
     cardStyle = "bg-success";
   } else {
     cardStyle = "bg-dark";
@@ -159,7 +159,7 @@ class Tile extends React.Component {
 
   return (
    <div className="col-3" >
-    <div className={"card " + cardStyle} onClick={() => props.click(loc)} style={{"margin": "5px", "height": "75px", "width": "75px", "textAlign": "center", "verticalAlign": "center", "lineHeight": "75px"}} >
+    <div className={"card " + cardStyle} onClick={() => this.props.click(loc)} style={{"margin": "5px", "height": "75px", "width": "75px", "textAlign": "center", "verticalAlign": "center", "lineHeight": "75px"}} >
         {value}
     </div>
    </div>
