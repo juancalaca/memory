@@ -71,7 +71,7 @@ class App extends React.Component {
         updatedTiles[prevTile].found = true;
       }
     }
-    }
+    
     return updatedTiles;
   }
 
