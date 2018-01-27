@@ -31,7 +31,7 @@ class App extends React.Component {
     console.log('App is going to re-render');
   }
 
-  componentDidUpdate() {
+  /*componentDidUpdate() {
     let updatedTiles = this.updateTiles(loc);
     if(this.state.prevTile !== null) {
       console.log("inner if");
@@ -39,7 +39,7 @@ class App extends React.Component {
       updatedTiles[ex].selected = false;
       updatedTiles[loc].selected = false;
     }
-  }
+  }*/
 
   updateGame(loc) {
     console.log("clicked");
