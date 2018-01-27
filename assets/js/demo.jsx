@@ -27,6 +27,10 @@ class App extends React.Component {
     });
   }
 
+  componentWillMount() {
+    console.log('App is going to re-render');
+  }
+
   updateGame(loc) {
     console.log("clicked");
     let clicks = this.state.clicks + 1;
