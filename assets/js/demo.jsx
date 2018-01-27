@@ -44,7 +44,6 @@ class App extends React.Component {
       this.sleep(1000);
       updatedTiles[ex].selected = false;
       updatedTiles[loc].selected = false;
-      this.setStateHelper(updatedTiles, clicks, prevTile);
     }
 
     //this.setState(this.state);
