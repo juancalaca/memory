@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 
-export default function run_demo(root) {
+export default function run_memory(root) {
   ReactDOM.render(<App />, root);
 }
 
@@ -23,33 +23,41 @@ class App extends React.Component {
     this.state = ({
       tiles: tiles,
       clicks: 0,
-      prevTile: null
+      prevTile: null,
+      locked: false
     });
   }
 
   updateGame(loc) {
-    console.log("clicked");
-    let clicks = this.state.clicks + 1;
+    if (this.state.locked) {
+      return;
+    }
+
+
+    let clicks = this.state.clicks;
+    if (!this.allTilesFound()) {
+      clicks = clicks + 1;
+    }
     let updatedTiles = this.updateTiles(loc);
+    let prevTile = this.state.prevTile === null ? loc : null;
     this.setState({
       tiles: updatedTiles,
       clicks: clicks,
-      prevTile: prevTile
+      prevTile: prevTile,
     });
-    let prevTile = this.state.prevTile === null ? loc : null;
-    if (this.state.prevTile !== null) {
-      this.sleep(1000);
-      this.clearSelect(updatedTiles, loc, this.state.prevTile);
-      this.setState({
-        tiles: updatedTiles,
-        clicks: clicks,
-        prevTile: prevTile
-      });
-    }
-
-    //this.setState(this.state);
-    //console.log(this.state);
+    
   }
+
+  allTilesFound() {
+    let allFound = true;
+    _.each(this.state.tiles, (tile) => {
+      if (!tile.found) {
+        allFound = false;
+      }
+    });
+    return allFound;
+  }
+
 
   updateTiles(loc) {
     let updatedTiles = this.state.tiles;
@@ -59,21 +67,19 @@ class App extends React.Component {
       if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
-      }
+      } else {
+        this.state.locked = true;
+      _.delay(() => {
+        updatedTiles[loc].selected = false;
+        updatedTiles[prevTile].selected = false;
+        this.setState({
+          tiles : updatedTiles,
+          locked: false
+        })
+      }, 1000);
+    }
     }
     return updatedTiles;
-  }
-
-  clearSelect(updatedTiles, loc, prevTile) {
-    updatedTiles[loc].selected = false;
-    updatedTiles[prevTile].selected = false;
-  }
-
-  sleep(ms) {
-    let timeNow = Date.now();
-    while (Date.now() - timeNow < ms) {
-      //do nothing
-    }
   }
 
   resetGame() {
