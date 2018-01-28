@@ -74,7 +74,7 @@ class MemoryGame extends React.Component {
     let updatedTiles = this.state.tiles;
     updatedTiles[loc].selected = true;
     let prevTile = this.state.prevTile;
-    if (prevTile) {
+    if (prevTile !== null) {
       if (updatedTiles[loc].value === updatedTiles[prevTile].value
         && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
