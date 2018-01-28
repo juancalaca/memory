@@ -100,7 +100,8 @@ class MemoryGame extends React.Component {
     this.setState({
       tiles: tiles,
       prevTile: null,
-      clicks: 0
+      clicks: 0,
+      locked: false
     });
   }
 
