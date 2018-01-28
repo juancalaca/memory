@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 
-export default function run_demo(root) {
+export default function run_memory(root) {
   ReactDOM.render(<App />, root);
 }
 
@@ -23,19 +23,24 @@ class App extends React.Component {
     this.state = ({
       tiles: tiles,
       clicks: 0,
-      prevTile: null
+      prevTile: null,
+      locked: false
     });
   }
 
   updateGame(loc) {
-    console.log("clicked");
+    if (this.state.locked) {
+      return;
+    }
+
     let clicks = this.state.clicks + 1;
     let updatedTiles = this.updateTiles(loc);
     let prevTile = this.state.prevTile === null ? loc : null;
     this.setState({
       tiles: updatedTiles,
       clicks: clicks,
-      prevTile: prevTile
+      prevTile: prevTile,
+      locked: true
     });
 
     //this.setState(this.state);
@@ -56,7 +61,8 @@ class App extends React.Component {
         updatedTiles[loc].selected = false;
         updatedTiles[prevTile].selected = false;
         this.setState({
-          tiles : updatedTiles
+          tiles : updatedTiles,
+          locked: false
         })
       }, 1000);
       console.log("end delay");
