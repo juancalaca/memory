@@ -45,8 +45,6 @@ class MemoryGame extends React.Component {
     if (this.state.locked) {
       return;
     }
-
-
     let clicks = this.state.clicks;
     if (!this.allTilesFound()) {
       clicks = clicks + 1;
@@ -56,7 +54,7 @@ class MemoryGame extends React.Component {
     this.setState({
       tiles: updatedTiles,
       clicks: clicks,
-      prevTile: prevTile,
+      prevTile: prevTile
     });
 
   }
@@ -77,7 +75,8 @@ class MemoryGame extends React.Component {
     updatedTiles[loc].selected = true;
     let prevTile = this.state.prevTile;
     if (prevTile) {
-      if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
+      if (updatedTiles[loc].value === updatedTiles[prevTile].value
+        && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
       } else {
