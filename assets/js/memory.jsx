@@ -35,7 +35,7 @@ class App extends React.Component {
 
 
     let clicks = this.state.clicks;
-    if (!allTilesFound) {
+    if (!this.allTilesFound) {
       clicks = clicks + 1;
     }
     let updatedTiles = this.updateTiles(loc);
