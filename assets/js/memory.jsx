@@ -45,9 +45,7 @@ class App extends React.Component {
       clicks: clicks,
       prevTile: prevTile,
     });
-
-    //this.setState(this.state);
-    //console.log(this.state);
+    
   }
 
   allTilesFound() {
@@ -59,6 +57,7 @@ class App extends React.Component {
     });
     return allFound;
   }
+
 
   updateTiles(loc) {
     let updatedTiles = this.state.tiles;
