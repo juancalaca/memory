@@ -118,7 +118,7 @@ class MemoryGame extends React.Component {
                   found={tile.found}
                   selected={tile.selected}
                   click={this.updateGame.bind(this)} />
-              );
+              )
             });
           }
         </div>
@@ -127,6 +127,6 @@ class MemoryGame extends React.Component {
           <ResetButton resetGame={this.resetGame.bind(this)} />
         </div>
       </div>
-    )
+    );
   }
 }
