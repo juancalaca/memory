@@ -40,7 +40,6 @@ class App extends React.Component {
       tiles: updatedTiles,
       clicks: clicks,
       prevTile: prevTile,
-      locked: true
     });
 
     //this.setState(this.state);
@@ -56,6 +55,7 @@ class App extends React.Component {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
       } else {
+        this.state.locked = true;
       _.delay(() => {
         console.log("delay");
         updatedTiles[loc].selected = false;
