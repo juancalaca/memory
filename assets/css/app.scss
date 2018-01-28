@@ -4,5 +4,13 @@
 
 .side { padding: 4ex; text-align: center; }
 h1 { text-align: center; }
-div::selection {background-color: clear;}
-div::-moz-selection {background-color: clear;}
+div::selection { background-color: clear; }
+div::-moz-selection { background-color: clear; }
+.tile {
+  margin: 5px;
+  height: 75px;
+  width: 75px;
+  text-align: center;
+  vertical-align: center;
+  line-height: 75px;
+}
