@@ -20,15 +20,14 @@ class MemoryGame extends React.Component {
   }
 
   setUpTiles() {
-    let letters = [
-                  'A', 'A',
-                  'B', 'B',
-                  'C', 'C',
-                  'D', 'D',
-                  'E', 'E',
-                  'F', 'F',
-                  'G', 'G',
-                  'H', 'H'];
+    let letters = [   'A', 'A',
+    'B', 'B',
+    'C', 'C',
+    'D', 'D',
+    'E', 'E',
+    'F', 'F',
+    'G', 'G',
+    'H', 'H'];
 
     letters = _.shuffle(letters);
     let tiles = _.map(letters, (value, ii) => {
@@ -77,22 +76,21 @@ class MemoryGame extends React.Component {
     let updatedTiles = this.state.tiles;
     updatedTiles[loc].selected = true;
     let prevTile = this.state.prevTile;
-    if (prevTile !== null) {
-      if (updatedTiles[loc].value === updatedTiles[prevTile].value
-        && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
+    if (prevTile) {
+      if (updatedTiles[loc].value === updatedTiles[prevTile].value && updatedTiles[loc].key !== updatedTiles[prevTile].key) {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
       } else {
         this.state.locked = true;
-      _.delay(() => {
-        updatedTiles[loc].selected = false;
-        updatedTiles[prevTile].selected = false;
-        this.setState({
-          tiles : updatedTiles,
-          locked: false
-        })
-      }, 1000);
-    }
+        _.delay(() => {
+          updatedTiles[loc].selected = false;
+          updatedTiles[prevTile].selected = false;
+          this.setState({
+            tiles : updatedTiles,
+            locked: false
+          });
+        }, 1000);
+      }
     }
     return updatedTiles;
   }
@@ -110,20 +108,23 @@ class MemoryGame extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          {_.map(this.state.tiles, (tile, ii) => {
-            return (<Tile
-              key={ii}
-              loc={ii}
-              value={tile.value}
-              found={tile.found}
-              selected={tile.selected}
-              click={this.updateGame.bind(this)}
-              /> )
-            })}
+          {
+            _.map(this.state.tiles, (tile, ii) => {
+              return (
+                <Tile
+                  key={ii}
+                  loc={ii}
+                  value={tile.value}
+                  found={tile.found}
+                  selected={tile.selected}
+                  click={this.updateGame.bind(this)} />
+              );
+            });
+          }
         </div>
         <div className="row">
-          <Clicks clickNum={this.state.clicks}/>
-          <ResetButton reset={this.resetGame.bind(this)}/>
+          <Clicks clickNum={this.state.clicks} />
+          <ResetButton resetGame={this.resetGame.bind(this)} />
         </div>
       </div>
     );

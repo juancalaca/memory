@@ -14,17 +14,17 @@ export function Tile(props) {
   }
 
   return (
-   <div className="col-3" >
-    <div className={"tile card " + cardStyle} onClick={() => props.click(loc)}>
+    <div className="col-3" >
+      <div className={"tile card " + cardStyle} onClick={() => props.click(loc)}>
         {value}
+      </div>
     </div>
-   </div>
   );
 }
 
 export function ResetButton(props) {
   return (
-    <button type="button" className="btn btn-primary col-6" onClick={props.reset} >
+    <button type="button" className="btn btn-primary col-6" onClick={props.reset}>
       Reset Game
     </button>
   );
@@ -32,6 +32,8 @@ export function ResetButton(props) {
 
 export function Clicks(props) {
   return (
-    <div id="clicks" className="col">{"Total clicks: " + props.clickNum}</div>
+    <div id="clicks" className="col">
+      {"Total clicks: " + props.clickNum}
+    </div>
   );
 }
