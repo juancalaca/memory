@@ -1,3 +1,4 @@
+#Attribution: altered version of forked version from Prof. Tuck's repository.
 server {
 	listen 80;
 	listen [::]:80;
