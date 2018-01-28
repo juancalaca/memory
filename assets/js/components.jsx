@@ -22,7 +22,7 @@ export default function Tile(props) {
   );
 }
 
-export default function ResetButton(props) {
+export function ResetButton(props) {
   return (
     <button type="button" className="btn btn-primary col-6" onClick={props.reset} >
       Reset Game
@@ -30,7 +30,7 @@ export default function ResetButton(props) {
   );
 }
 
-export default function Clicks(props) {
+export function Clicks(props) {
   return (
     <div id="clicks" className="col">{"Total clicks: " + props.clickNum}</div>
   );
