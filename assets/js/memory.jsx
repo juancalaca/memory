@@ -20,7 +20,8 @@ class MemoryGame extends React.Component {
   }
 
   setUpTiles() {
-    let letters = [   'A', 'A',
+    let letters = [
+    'A', 'A',
     'B', 'B',
     'C', 'C',
     'D', 'D',
