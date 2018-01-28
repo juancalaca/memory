@@ -35,7 +35,6 @@ class App extends React.Component {
 
 
     let clicks = this.state.clicks;
-    console.log(this.allTilesFound());
     if (!this.allTilesFound()) {
       clicks = clicks + 1;
     }
@@ -72,7 +71,6 @@ class App extends React.Component {
       } else {
         this.state.locked = true;
       _.delay(() => {
-        console.log("delay");
         updatedTiles[loc].selected = false;
         updatedTiles[prevTile].selected = false;
         this.setState({
@@ -80,7 +78,6 @@ class App extends React.Component {
           locked: false
         })
       }, 1000);
-      console.log("end delay");
     }
     }
     return updatedTiles;
