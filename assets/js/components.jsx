@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Tile(props) {
+export function Tile(props) {
   let loc = props.loc;
   let cardStyle;
   let value = props.value;
