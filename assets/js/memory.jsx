@@ -127,6 +127,6 @@ class MemoryGame extends React.Component {
           <ResetButton resetGame={this.resetGame.bind(this)} />
         </div>
       </div>
-    );
+    )
   }
 }
