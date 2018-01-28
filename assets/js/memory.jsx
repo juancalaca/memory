@@ -33,7 +33,11 @@ class App extends React.Component {
       return;
     }
 
-    let clicks = this.state.clicks + 1;
+
+    let clicks = this.state.clicks;
+    if (!allTilesFound) {
+      clicks = clicks + 1;
+    }
     let updatedTiles = this.updateTiles(loc);
     let prevTile = this.state.prevTile === null ? loc : null;
     this.setState({
@@ -44,6 +48,15 @@ class App extends React.Component {
 
     //this.setState(this.state);
     //console.log(this.state);
+  }
+
+  allTilesFound() {
+    _.each(this.state.tiles, (tile) => {
+      if (!tile.found) {
+        return false;
+      }
+    });
+    return true;
   }
 
   updateTiles(loc) {
