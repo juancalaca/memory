@@ -35,7 +35,8 @@ class App extends React.Component {
 
 
     let clicks = this.state.clicks;
-    if (!this.allTilesFound) {
+    console.log(this.allTilesFound());
+    if (!this.allTilesFound()) {
       clicks = clicks + 1;
     }
     let updatedTiles = this.updateTiles(loc);
@@ -51,12 +52,13 @@ class App extends React.Component {
   }
 
   allTilesFound() {
+    let allFound = true;
     _.each(this.state.tiles, (tile) => {
       if (!tile.found) {
-        return false;
+        allFound = false;
       }
     });
-    return true;
+    return allFound;
   }
 
   updateTiles(loc) {
