@@ -119,7 +119,7 @@ class MemoryGame extends React.Component {
                   selected={tile.selected}
                   click={this.updateGame.bind(this)} />
               )
-            });
+            })
           }
         </div>
         <div className="row">
