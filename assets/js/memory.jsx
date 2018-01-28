@@ -81,7 +81,9 @@ class MemoryGame extends React.Component {
         updatedTiles[loc].found = true;
         updatedTiles[prevTile].found = true;
       } else {
-        this.state.locked = true;
+        this.setState({
+          locked: true
+        });
         _.delay(() => {
           updatedTiles[loc].selected = false;
           updatedTiles[prevTile].selected = false;
