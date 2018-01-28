@@ -1,0 +1,8 @@
+/* This file is for your main application css. */
+
+@import "bootstrap";
+
+.side { padding: 4ex; text-align: center; }
+h1 { text-align: center; }
+div::selection {background-color: clear;}
+div::-moz-selection {background-color: clear;}
