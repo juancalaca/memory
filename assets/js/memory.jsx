@@ -97,7 +97,6 @@ class MemoryGame extends React.Component {
 
   resetGame() {
     let tiles = this.setUpTiles();
-    console.log("resetGame");
     this.setState({
       tiles: tiles,
       prevTile: null,
