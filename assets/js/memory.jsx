@@ -1,15 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
+import { Tile, ResetButton, Clicks } from './components';
 
 export default function run_memory(root) {
-  ReactDOM.render(<App />, root);
+  ReactDOM.render(<MemoryGame />, root);
 }
 
-class App extends React.Component {
+class MemoryGame extends React.Component {
   constructor(props) {
     super(props);
-    let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
+    let tiles = this.setUpTiles();
+    this.state = ({
+      tiles: tiles,
+      clicks: 0,
+      prevTile: null,
+      locked: false
+    });
+  }
+
+  setUpTiles() {
+    let letters = [
+                  'A', 'A',
+                  'B', 'B',
+                  'C', 'C',
+                  'D', 'D',
+                  'E', 'E',
+                  'F', 'F',
+                  'G', 'G',
+                  'H', 'H'];
+
     letters = _.shuffle(letters);
     let tiles = _.map(letters, (value, ii) => {
       return {
@@ -19,13 +39,7 @@ class App extends React.Component {
         selected: false
       }
     });
-
-    this.state = ({
-      tiles: tiles,
-      clicks: 0,
-      prevTile: null,
-      locked: false
-    });
+    return tiles;
   }
 
   updateGame(loc) {
@@ -45,7 +59,7 @@ class App extends React.Component {
       clicks: clicks,
       prevTile: prevTile,
     });
-    
+
   }
 
   allTilesFound() {
@@ -83,28 +97,13 @@ class App extends React.Component {
   }
 
   resetGame() {
-    let letters = ['D', 'A', 'G', 'D', 'A', 'F', 'E', 'C', 'C', 'G', 'H', 'E', 'B', 'F', 'B', 'H'];
-    letters = _.shuffle(letters);
-    let tiles = _.map(letters, (value, ii) => {
-      return {
-        key: ii,
-        value: value,
-        found: false,
-        selected: false
-      }
-    });
+    let tiles = this.setUpTiles();
     this.setState({
       tiles: tiles,
       prevTile: null,
       clicks: 0
     });
   }
-
-  /*incrementClicks() {
-    this.setState({
-      clicks: this.state.clicks + 1
-    });
-  }*/
 
   render() {
     return (
@@ -128,40 +127,4 @@ class App extends React.Component {
       </div>
     );
   }
-}
-
-function Tile(props) {
-  let loc = props.loc;
-  let cardStyle;
-  let value = props.value;
-  if (props.selected && !props.found) {
-    cardStyle = "bg-danger";
-  } else if (props.found) {
-    cardStyle = "bg-success";
-  } else {
-    cardStyle = "bg-dark";
-    value= " ";
-  }
-
-  return (
-   <div className="col-3" >
-    <div className={"card " + cardStyle} onClick={() => props.click(loc)} style={{"margin": "5px", "height": "75px", "width": "75px", "textAlign": "center", "verticalAlign": "center", "lineHeight": "75px"}} >
-        {value}
-    </div>
-   </div>
-  );
-}
-
-function ResetButton(props) {
-  return (
-    <button type="button" className="btn btn-primary col-6" onClick={props.reset} >
-      Reset Game
-    </button>
-  );
-}
-
-function Clicks(props) {
-  return (
-    <div id="clicks" className="col">{"Total clicks: " + props.clickNum}</div>
-  );
 }
