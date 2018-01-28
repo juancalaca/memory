@@ -24,7 +24,7 @@ export function Tile(props) {
 
 export function ResetButton(props) {
   return (
-    <button type="button" className="btn btn-primary col-6" onClick={props.reset}>
+    <button type="button" className="btn btn-primary col-6" onClick={props.resetGame}>
       Reset Game
     </button>
   );
