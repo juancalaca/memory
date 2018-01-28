@@ -4,8 +4,13 @@
 
 .side { padding: 4ex; text-align: center; }
 h1 { text-align: center; }
+
+/* Since using div, value gets selected when clicked, getting rid of select color.
+Having to add different functionality for the FireFox browser. */
 div::selection { background-color: clear; }
 div::-moz-selection { background-color: clear; }
+
+/* Style all tiles to be the same. */
 .tile {
   margin: 5px;
   height: 75px;

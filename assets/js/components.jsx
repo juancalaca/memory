@@ -1,5 +1,7 @@
 import React from 'react';
 
+//Functional component that renders a tile using the props and handles the click
+//events.
 export function Tile(props) {
   let loc = props.loc;
   let cardStyle;
@@ -22,6 +24,8 @@ export function Tile(props) {
   );
 }
 
+//Functional component renders a button that handles clicks with the purpose of
+//restarting the game.
 export function ResetButton(props) {
   return (
     <button type="button" className="btn btn-primary col-6" onClick={props.resetGame}>
@@ -30,6 +34,8 @@ export function ResetButton(props) {
   );
 }
 
+//Functional component that renders the number of clicks done in the current
+//game session. 
 export function Clicks(props) {
   return (
     <div id="clicks" className="col">

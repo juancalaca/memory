@@ -7,6 +7,34 @@ export default function run_memory(root) {
   ReactDOM.render(<MemoryGame />, root);
 }
 
+/*
+* This class contains and handles the Memory Game state. This version keeps
+* track of the handled clicks for the game.
+* State is composed of:
+*  = tiles: list of tile objects
+*    -> tile object has attributes:
+*       - key: unique key
+*       - value: value of card
+*       - found: boolean if found or not
+*       - selected: boolean if selected or not
+*  = clicks: number of clicks in current game
+*  = prevTile: keep track of each play if null first card selected otherwise
+*              pair made
+*  = locked: boolean false for game to re-render, otherwise don't re-render,
+*            used for timeout of 1000ms to not count clicks during interval and
+*            not change state during that interval
+*
+* This MemoryGame class uses functional components, found in file ./components,
+* to render the current state, and update the current state.
+*
+* Design choices: if all tiles found, game won't re-render until restart Button
+*                is clicked.
+*
+* Color Scheme:
+*   Green - found
+*   Red - selected
+*   Black - hidden
+*/
 class MemoryGame extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +47,10 @@ class MemoryGame extends React.Component {
     });
   }
 
+  //Method sets up tiles for a new game of memory constrained to values
+  //and sets initial values of found and selected to false.
+  //
+  //returns a list of tile objects defining a new game
   setUpTiles() {
     let letters = [
     'A', 'A',
@@ -39,19 +71,26 @@ class MemoryGame extends React.Component {
         selected: false
       }
     });
+
     return tiles;
   }
 
+  //On click handler that updates the game according to the current state and
+  //currently selected card. If all tiles are found the game will not update
+  //until restart button is hit. If the game is locked, the game will not update.
   updateGame(loc) {
     if (this.state.locked) {
       return;
     }
-    let clicks = this.state.clicks;
-    if (!this.allTilesFound()) {
-      clicks = clicks + 1;
+
+    if (this.allTilesFound()) {
+      return;
     }
+
+    let clicks = this.state.clicks + 1;
     let updatedTiles = this.updateTiles(loc);
     let prevTile = this.state.prevTile === null ? loc : null;
+
     this.setState({
       tiles: updatedTiles,
       clicks: clicks,
@@ -60,6 +99,7 @@ class MemoryGame extends React.Component {
 
   }
 
+  //Returns true if all cards are found, false otherwise.
   allTilesFound() {
     let allFound = true;
     _.each(this.state.tiles, (tile) => {
@@ -70,7 +110,10 @@ class MemoryGame extends React.Component {
     return allFound;
   }
 
-
+  //Updates tiles according to currently selected card and the current state of
+  //the game. Implements delay of game when match is not found.
+  //
+  //returns an updated version of the tiles' state depending on selection
   updateTiles(loc) {
     let updatedTiles = this.state.tiles;
     updatedTiles[loc].selected = true;
@@ -97,6 +140,7 @@ class MemoryGame extends React.Component {
     return updatedTiles;
   }
 
+  //Resets game to initial conditions.
   resetGame() {
     let tiles = this.setUpTiles();
     this.setState({
