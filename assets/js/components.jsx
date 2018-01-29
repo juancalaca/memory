@@ -9,7 +9,6 @@ export function Tile(props) {
   }
   
   let cardStyle;
-  let value = !props.selected && !props.found ? " " : props.value;
   if (props.selected && !props.found) {
     cardStyle = "bg-danger";
   } else if (props.found) {
@@ -17,6 +16,8 @@ export function Tile(props) {
   } else {
     cardStyle = "bg-dark";
   }
+  
+  let value = !props.selected && !props.found ? " " : props.value;
 
   return (
     <div className="col-3" >
