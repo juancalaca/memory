@@ -80,7 +80,7 @@ class MemoryGame extends React.Component {
   //currently selected card. If all tiles are found the game will not update
   //until restart button is hit. If the game is locked, the game will not update.
   updateGame(loc) {
-    this.channel.push{"move", {}}
+    this.channel.push("move", {})
         .receive("ok", console.log("received"));
     if (this.state.locked) {
       return;
