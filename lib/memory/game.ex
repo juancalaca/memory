@@ -78,7 +78,7 @@ defmodule Memory.Game do
 
   def unlock(state) do
     state = Map.put(state, :locked, false)
-    updated_tiles = Enum.each(state.tiles, fn tile ->
+    updated_tiles = Enum.map(state.tiles, fn tile ->
       if (tile.selected) do
         Map.put(tile, :selected, false)
       else
