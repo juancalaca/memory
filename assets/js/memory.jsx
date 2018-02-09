@@ -39,7 +39,7 @@ class MemoryGame extends React.Component {
   constructor(props) {
     super(props);
     //let tiles = this.setUpTiles();
-    this.channel = params.channel;
+    this.channel = props.channel;
     this.state = ({
       tiles: [ ],
       clicks: 0,
