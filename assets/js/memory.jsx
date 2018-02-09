@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 import { Tile, ResetButton, Clicks } from './components';
 
-export default function run_memory(root) {
-  ReactDOM.render(<MemoryGame />, root);
+export default function run_memory(root, channel) {
+  ReactDOM.render(<MemoryGame / channel={channel}>, root);
 }
 
 /*
@@ -38,9 +38,10 @@ export default function run_memory(root) {
 class MemoryGame extends React.Component {
   constructor(props) {
     super(props);
-    let tiles = this.setUpTiles();
+    //let tiles = this.setUpTiles();
+    let this.channel = params.channel;
     this.state = ({
-      tiles: tiles,
+      tiles: [ ],
       clicks: 0,
       prevTile: null,
       locked: false
@@ -79,6 +80,8 @@ class MemoryGame extends React.Component {
   //currently selected card. If all tiles are found the game will not update
   //until restart button is hit. If the game is locked, the game will not update.
   updateGame(loc) {
+    this.channel.push{"move", {}}
+        .receive("ok", console.log("received"))
     if (this.state.locked) {
       return;
     }
