@@ -32,6 +32,7 @@ defmodule Memory.Game do
 
   def move(state, loc) do
     if all_tiles_found(state) do
+      IO.write "all tiles found"
       state
     end
 
@@ -85,7 +86,6 @@ defmodule Memory.Game do
         tile
       end
     end)
-    IO.inspect updated_tiles
     Map.put(state, :tiles, updated_tiles)
   end
 
