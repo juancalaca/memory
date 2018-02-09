@@ -6,9 +6,9 @@
       <h1 id="index-page">Join A Game</h1>
       <p>
         <div class="form-group">
-          <form onsubmit="this.action='/game/'+this.game-name.value;" method="put">
+          <form onsubmit="this.action='/game/'+this.getElementById('game-name').value;" method="put">
             <label for="game-name">Please input game name:</label>
-            <input type="text" class="form-control" name="game-name" id="game-name" placeholder="Game Name">
+            <input type="text" class="form-control" id="game-name" placeholder="Game Name">
             <button type="submit" class="btn btn-primary">Start Game</button>
           </form>
         </div>
