@@ -47,7 +47,7 @@ class MemoryGame extends React.Component {
       locked: false
     });
 
-    channel.join()
+    this.channel.join()
       .receive("ok", this.updateGame.bind(this))
       .receive("error", resp => { console.log("Unable to join", resp); });
       console.log("run memory");
