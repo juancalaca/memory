@@ -33,6 +33,9 @@ class MemoryGame extends React.Component {
   }
 
   move(loc) {
+    if (this.state.locked) {
+      return;
+    }
     this.channel.push("move", { move: loc })
         .receive("ok", this.updateGame.bind(this));
   }
