@@ -16,7 +16,7 @@ defmodule MemoryWeb.GamesChannel do
   def handle_in("move", %{"move" => loc}, socket) do
     game = Memory.Game.move(socket.assigns[:game], loc)
     socket = assign(socket, :game, game)
-    {:reply, %{"game" => game}, socket}
+    {:reply, {:ok, %{"game" => game}}, socket}
   end
 
   # It is also common to receive messages from the client and
