@@ -79,9 +79,9 @@ class MemoryGame extends React.Component {
   //On click handler that updates the game according to the current state and
   //currently selected card. If all tiles are found the game will not update
   //until restart button is hit. If the game is locked, the game will not update.
-  updateGame(loc) {
-    this.channel.push("move", {})
-        .receive("ok", console.log("received"));
+  updateGame(newState) {
+    /*this.channel.push("move", {})
+        .receive("ok", console.log("received"));*
     if (this.state.locked) {
       return;
     }
@@ -98,8 +98,16 @@ class MemoryGame extends React.Component {
       tiles: updatedTiles,
       clicks: clicks,
       prevTile: prevTile
+    });*/
+    this.setState({
+      newState
     });
 
+  }
+
+  move(loc) {
+    this.channel.push("move", {})
+        .receive("ok", this.updateGame.bind(this));
   }
 
   //Returns true if all cards are found, false otherwise.
@@ -167,7 +175,7 @@ class MemoryGame extends React.Component {
                   value={tile.value}
                   found={tile.found}
                   selected={tile.selected}
-                  click={this.updateGame.bind(this)} />
+                  click={this.move.bind(this)} />
               )
             })
           }
