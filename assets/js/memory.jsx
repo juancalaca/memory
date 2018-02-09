@@ -24,7 +24,6 @@ class MemoryGame extends React.Component {
   }
 
   updateGame(newState) {
-    console.log("Update Game", newState.game.tiles)
     this.setState(newState.game);
     if (this.state.locked) {
       _.delay(() => {
