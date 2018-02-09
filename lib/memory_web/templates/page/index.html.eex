@@ -9,9 +9,9 @@
           <form action="/game/:game">
             <label for="game-name">Please input game name:</label>
             <input type="text" class="form-control" id="game-name" placeholder="Game Name">
+            <button type="submit" class="btn btn-primary">Start Game</button>
           </form>
         </div>
-        <button type="submit" class="btn btn-primary">Start Game</button>
       </p>
     </div>
   </div>
