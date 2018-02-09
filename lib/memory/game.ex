@@ -31,7 +31,7 @@ defmodule Memory.Game do
   end
 
   def move(state, loc) do
-    if all_tiles_found(state) do
+    if all_tiles_found(state) || state.locked do
       state
     else
       {lock, tiles} = update_tiles(state, loc)
