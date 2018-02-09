@@ -86,6 +86,7 @@ defmodule Memory.Game do
         tile
       end
     end)
+    IO.inspect updated_tiles
     Map.put(state, :tiles, updated_tiles)
   end
 
