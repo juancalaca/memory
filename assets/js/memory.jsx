@@ -106,7 +106,7 @@ class MemoryGame extends React.Component {
   }
 
   move(loc) {
-    this.channel.push("move", {"move" => loc})
+    this.channel.push("move", { move: loc })
         .receive("ok", this.updateGame.bind(this));
   }
 
