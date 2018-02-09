@@ -32,16 +32,15 @@ defmodule Memory.Game do
 
   def move(state, loc) do
     if all_tiles_found(state) do
-      IO.write "all tiles found"
       state
+    else
+      {lock, tiles} = update_tiles(state, loc)
+
+      Map.put(state, :clicks, state.clicks + 1)
+      |> Map.put(:prev_tile, get_prev(state, loc))
+      |> Map.put(:tiles, tiles)
+      |> Map.put(:locked, lock)
     end
-
-    {lock, tiles} = update_tiles(state, loc)
-
-    Map.put(state, :clicks, state.clicks + 1)
-    |> Map.put(:prev_tile, get_prev(state, loc))
-    |> Map.put(:tiles, tiles)
-    |> Map.put(:locked, lock)
   end
 
   def all_tiles_found(state) do
