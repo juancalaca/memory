@@ -28,6 +28,7 @@ defmodule MemoryWeb.GamesChannel do
   def handle_in("unlock", payload, socket) do
     game = Memory.Game.unlock(socket.assigns[:game])
     socket = assign(socket, :game, game)
+    Process.sleep(1000)
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
