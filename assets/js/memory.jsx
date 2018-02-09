@@ -27,9 +27,10 @@ class MemoryGame extends React.Component {
     console.log("Update Game", newState.game.tiles)
     this.setState(newState.game);
     if (this.state.locked) {
-      this.channel.push("unlock", {})
-          .receive("ok", this.updateGame.bind(this));
-          console.log("waiting");
+      _.delay({
+        this.channel.push("unlock", {})
+            .receive("ok", this.updateGame.bind(this));
+      }, 1000);
     }
   }
 
