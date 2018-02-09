@@ -106,7 +106,7 @@ class MemoryGame extends React.Component {
     });*/
     console.log("Update Game", newState.game)
     this.setState({
-      newState
+      newState.game
     });
 
   }
