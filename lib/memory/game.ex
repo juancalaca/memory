@@ -18,7 +18,7 @@ defmodule Memory.Game do
       'E', 'E',
       'F', 'F',
       'G', 'G',
-      'H', 'H'
+      "H", "H"
     ]
     Enum.shuffle(letters)
     |> Enum.map(fn letter ->
