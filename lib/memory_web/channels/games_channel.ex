@@ -3,7 +3,10 @@ defmodule MemoryWeb.GamesChannel do
 
   def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
-      {:ok, socket}
+      game = Game.new()
+      socket = assign(:game, game) |> assign(:name, name)
+
+      {:ok, %{"join" => name, "game" => game}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
@@ -11,8 +14,10 @@ defmodule MemoryWeb.GamesChannel do
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
-  def handle_in("move", payload, socket) do
-    {:reply, :ok, socket}
+  def handle_in("move", %{"move" => loc}, socket) do
+    game = Game.move(socket.assigns[:game], loc)
+    socket = assign(socket, :game, game)
+    {:reply, %{"game" => game}, socket}
   end
 
   # It is also common to receive messages from the client and
