@@ -26,14 +26,16 @@ class MemoryGame extends React.Component {
   updateGame(newState) {
     console.log("Update Game", newState.game.tiles)
     this.setState(newState.game);
-
+    if (this.state.locked) {
+      this.channel.push("unlock", {})
+          .receive("ok", this.updateGame.bind(this));
+    }
   }
 
   move(loc) {
     this.channel.push("move", { move: loc })
         .receive("ok", this.updateGame.bind(this));
   }
-
 
   //Resets game to initial conditions.
   resetGame() {

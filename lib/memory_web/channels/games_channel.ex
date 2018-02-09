@@ -25,6 +25,12 @@ defmodule MemoryWeb.GamesChannel do
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
+  def handle_in("unlock", payload, socket) do
+    game = Memory.Game.unlock(socket.assigns[:game])
+    socket = assign(socket, :game, game)
+    {:reply, {:ok, %{"game" => game}}, socket}
+  end
+
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (games:lobby).
   def handle_in("shout", payload, socket) do
