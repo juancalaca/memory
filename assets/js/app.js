@@ -18,13 +18,19 @@ import "phoenix_html";
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-// import socket from "./socket"
+import socket from "./socket"
 
 import run_memory from "./memory";
 
 function init() {
   let root = document.getElementById('game');
-  run_memory(root);
+  //run_memory(root);
+
+  // Now that you are connected, you can join channels with a topic:
+  let channel = socket.channel("games:" + window.gameName, {});
+  channel.join()
+    .receive("ok", resp => { console.log("Joined successfully", resp); })
+    .receive("error", resp => { console.log("Unable to join", resp); });
 }
 
 // Use jQuery to delay until page loaded.
