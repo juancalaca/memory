@@ -1,7 +1,7 @@
 defmodule MemoryWeb.GamesChannel do
   use MemoryWeb, :channel
 
-  def join("games:" <>, payload, socket) do
+  def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
       {:ok, socket}
     else
