@@ -46,6 +46,11 @@ class MemoryGame extends React.Component {
       prevTile: null,
       locked: false
     });
+
+    channel.join()
+      .receive("ok", this.updateGame.bind(this))
+      .receive("error", resp => { console.log("Unable to join", resp); });
+      console.log("run memory");
   }
 
   //Method sets up tiles for a new game of memory constrained to values
@@ -99,6 +104,7 @@ class MemoryGame extends React.Component {
       clicks: clicks,
       prevTile: prevTile
     });*/
+    console.log("Update Game", newState.game)
     this.setState({
       newState
     });

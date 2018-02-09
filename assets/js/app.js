@@ -27,11 +27,7 @@ function init() {
   //run_memory(root);
   if (root) {
     let channel = socket.channel("games:" + window.gameName, {});
-    channel.join()
-      .receive("ok", resp => { console.log("Joined successfully", resp); })
-      .receive("error", resp => { console.log("Unable to join", resp); });
-      console.log("run memory");
-      run_memory(root, channel);
+    run_memory(root, channel);
   }
 
   // Now that you are connected, you can join channels with a topic:
