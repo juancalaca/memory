@@ -3,9 +3,9 @@
 <div id="game">
   <div class="row">
     <div class="col">
-      <h1 id="game-name">Memory Game: <=% @game %></h1>
+      <h1 id="game-name">Memory Game: <%= @game %></h1>
       <script>
-        window.gameName = "<= @game %>";
+        window.gameName = "<%= @game %>";
       </script>
       <div id="root">
         <p>Loading Memory Game...</p>
