@@ -105,9 +105,7 @@ class MemoryGame extends React.Component {
       prevTile: prevTile
     });*/
     console.log("Update Game", newState.game)
-    this.setState({
-      newState.game
-    });
+    this.setState(newState.game);
 
   }
 
