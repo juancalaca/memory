@@ -157,13 +157,15 @@ class MemoryGame extends React.Component {
 
   //Resets game to initial conditions.
   resetGame() {
-    let tiles = this.setUpTiles();
+    this.channel.push("restart", {})
+        .receive("ok", this.updateGame.bind(this));
+    /*let tiles = this.setUpTiles();
     this.setState({
       tiles: tiles,
       prevTile: null,
       clicks: 0,
       locked: false
-    });
+    });*/
   }
 
   render() {
