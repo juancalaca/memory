@@ -12,7 +12,7 @@ defmodule MemoryWeb.GamesChannel do
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   def handle_in("move", payload, socket) do
-    {:reply, {:ok, "received"}, socket}
+    {:reply, :ok, socket}
   end
 
   # It is also common to receive messages from the client and
