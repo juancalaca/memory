@@ -27,7 +27,7 @@ class MemoryGame extends React.Component {
     console.log("Update Game", newState.game.tiles)
     this.setState(newState.game);
     if (this.state.locked) {
-      _.delay({
+      _.delay(() => {
         this.channel.push("unlock", {})
             .receive("ok", this.updateGame.bind(this));
       }, 1000);
@@ -36,6 +36,7 @@ class MemoryGame extends React.Component {
 
   move(loc) {
     if (this.state.locked) {
+      console.log("locked");
       return;
     }
     this.channel.push("move", { move: loc })
