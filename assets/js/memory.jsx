@@ -4,7 +4,7 @@ import { Button } from 'reactstrap';
 import { Tile, ResetButton, Clicks } from './components';
 
 export default function run_memory(root, channel) {
-  ReactDOM.render(<MemoryGame / channel={channel}>, root);
+  ReactDOM.render(<MemoryGame channel={channel} />, root);
 }
 
 /*
@@ -81,7 +81,7 @@ class MemoryGame extends React.Component {
   //until restart button is hit. If the game is locked, the game will not update.
   updateGame(loc) {
     this.channel.push{"move", {}}
-        .receive("ok", console.log("received"))
+        .receive("ok", console.log("received"));
     if (this.state.locked) {
       return;
     }
