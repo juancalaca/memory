@@ -3,7 +3,8 @@ defmodule MemoryWeb.GamesChannel do
 
   def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
-      game = Memory.Game.new()
+      game = Worker.get(name) || Memory.Game.new()
+      backup(name, game)
       socket = assign(socket, :game, game) |> assign(:name, name)
       {:ok, %{"join" => name, "game" => game}, socket}
     else
@@ -15,20 +16,27 @@ defmodule MemoryWeb.GamesChannel do
   # by sending replies to requests from the client
   def handle_in("move", %{"move" => loc}, socket) do
     game = Memory.Game.move(socket.assigns[:game], loc)
+    backup(name, socket.assigns[:name])
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
   def handle_in("restart", payload, socket) do
     game = Memory.Game.new()
+    backup(name, socket.assigns[:name])
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
   def handle_in("unlock", payload, socket) do
     game = Memory.Game.unlock(socket.assigns[:game])
+    backup(name, socket.assigns[:name])
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{"game" => game}}, socket}
+  end
+
+  def backup(name, game) do
+    Worker.save_game(name, game)
   end
 
   # It is also common to receive messages from the client and
