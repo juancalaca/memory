@@ -1,9 +1,10 @@
 defmodule MemoryWeb.GamesChannel do
   use MemoryWeb, :channel
+  use MemoryWeb.Backup
 
   def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
-      game = MemoryWeb.Worker.get(name) || Memory.Game.new()
+      game = MemoryWeb.Backup.get(name) || Memory.Game.new()
       backup(name, game)
       socket = assign(socket, :game, game) |> assign(:name, name)
       {:ok, %{"join" => name, "game" => game}, socket}
@@ -36,7 +37,7 @@ defmodule MemoryWeb.GamesChannel do
   end
 
   def backup(name, game) do
-    MemoryWeb.Worker.save_game(name, game)
+    MemoryWeb.Backup.save_game(name, game)
   end
 
   # It is also common to receive messages from the client and

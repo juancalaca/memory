@@ -1,4 +1,4 @@
-defmodule MemoryWeb.Worker do
+defmodule MemoryWeb.Backup do
   use Agent
 
   def start_link(initial_state) do
