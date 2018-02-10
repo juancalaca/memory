@@ -1,5 +1,5 @@
 defmodule MemoryWeb.GamesChannel do
-  use MemoryWeb, :channel
+  use MemoryWeb, :channel, :worker
 
   def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
@@ -21,14 +21,14 @@ defmodule MemoryWeb.GamesChannel do
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
-  def handle_in("restart", payload, socket) do
+  def handle_in("restart", _payload, socket) do
     game = Memory.Game.new()
     backup(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
-  def handle_in("unlock", payload, socket) do
+  def handle_in("unlock", _payload, socket) do
     game = Memory.Game.unlock(socket.assigns[:game])
     backup(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
