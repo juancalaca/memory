@@ -10,7 +10,8 @@ defmodule Memory.Application do
     children = [
       # Start the endpoint when the application starts
       supervisor(MemoryWeb.Endpoint, []),
-      # Start your own worker by calling: Memory.Worker.start_link(arg1, arg2, arg3)
+
+      # Start Backup module to save name and game state as key-value pairs.
       worker(MemoryWeb.Backup, [%{}]),
     ]
 

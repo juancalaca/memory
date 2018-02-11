@@ -24,17 +24,12 @@ import run_memory from "./memory";
 
 function init() {
   let root = document.getElementById('root');
-  //run_memory(root);
+
+  //If the document contains the root, start socket channel and run game.
   if (root) {
     let channel = socket.channel("games:" + window.gameName, {});
     run_memory(root, channel);
   }
-
-  // Now that you are connected, you can join channels with a topic:
-  /*let channel = socket.channel("games:" + window.gameName, {});
-  channel.join()
-    .receive("ok", resp => { console.log("Joined successfully", resp); })
-    .receive("error", resp => { console.log("Unable to join", resp); });*/
 }
 
 // Use jQuery to delay until page loaded.

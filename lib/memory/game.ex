@@ -1,5 +1,23 @@
 defmodule Memory.Game do
+  @moduledoc """
+  This module represents the memory game state and the operations to the state.
+  The state is composed of a map, holding:
+  + tiles -> list of tiles (maps).
+    - These tiles have:
+      ~ value: value of card
+      ~ found: true if match found, false otherwise
+      ~ selected: true if tile currently selected, false otherwise
+  + clicks -> number of clicks on cards the user has done in the current game
+  + prev_tile -> keeps tracks of selection, if null first card selected, otherwise
+                 pair made
+  + locked -> true if locked, false otherwise, implemented to have delay when a
+              pair is made and not count user's click during timeout
+  """
 
+  @doc """
+  Function returns the state that defines a new game. Calls helper function
+  Memory.Game.setup_tiles/1
+  """
   def new() do
     %{
       tiles: setup_tiles(),
@@ -9,17 +27,12 @@ defmodule Memory.Game do
     }
   end
 
+  @doc """
+  Setups up a list of tiles, where a tile is map describing
+  """
   def setup_tiles() do
-    letters = [
-      "A", "A",
-      "B", "B",
-      "C", "C",
-      "D", "D",
-      "E", "E",
-      "F", "F",
-      "G", "G",
-      "H", "H"
-    ]
+    letters = ~w(A A B B C C D D E E F F G G H H)
+
     Enum.shuffle(letters)
     |> Enum.map(fn letter ->
       %{
