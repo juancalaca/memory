@@ -21,39 +21,27 @@ defmodule MemoryWeb.GamesChannel do
 
   # Handles in coming move message, backups updated state.
   def handle_in("move", %{"move" => loc}, socket) do
-    sock = socket
     game = Memory.Game.move(socket.assigns[:game], loc)
+    Phoenix.Endpoint.broadcast socket.assigns["name"], "update-state", %{}
     backup(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
-    MemoryWeb.Endpoint.broadcast! sock, "state-update", %{"game" => game}
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
   # Handles incoming restart message, amd backups new game state.
   def handle_in("restart", _payload, socket) do
-    sock = socket
     game = Memory.Game.new()
     backup(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
-    MemoryWeb.Endpoint.broadcast! sock, "state-update", %{"game" => game}
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
   # Handles unlocking, and stores new state.
   def handle_in("unlock", _payload, socket) do
-    sock = socket
     game = Memory.Game.unlock(socket.assigns[:game])
     backup(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
-    MemoryWeb.Endpoint.broadcast! sock, "state-update", %{"game" => game}
     {:reply, {:ok, %{"game" => game}}, socket}
-  end
-
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (games:lobby).
-  def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
-    {:noreply, socket}
   end
 
   # Backups game in MemoryWeb.Backup
