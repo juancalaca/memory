@@ -55,7 +55,6 @@ class MemoryGame extends React.Component {
       .receive("error", resp => { console.log("Unable to join", resp); });
 
     //Listen to broadcast
-    this.channel.on("update-state", resp => { console.log("broadcast", resp); });
     this.channel.on("update-state", this.updateGame.bind(this));
   }
 
@@ -64,7 +63,6 @@ class MemoryGame extends React.Component {
   //socket. If the game state is locked, it will send a message to unlock the
   //game after a period of 1000ms.
   updateGame(newState) {
-    console.log(newState.game);
     this.setState(newState.game);
   }
 
@@ -77,14 +75,12 @@ class MemoryGame extends React.Component {
     }
 
     this.channel.push("move", { move: loc })
-        .receive("ok", this.updateGame.bind(this))
         .receive("error", resp => { console.log("Unable to send move", resp); });
   }
 
   //Sends restart message to reset game to initial conditions.
   resetGame() {
     this.channel.push("restart", {})
-        .receive("ok", this.updateGame.bind(this))
         .receive("error", resp => { console.log("Unable to reset game.", resp); });
   }
 

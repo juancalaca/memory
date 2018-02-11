@@ -26,13 +26,13 @@ defmodule MemoryWeb.GamesChannel do
     if game.locked do
       broadcast_change(socket.assigns[:name], game)
       game = Memory.Game.unlock(game)
-      backup(socket.assigns[:name], game);
       Process.sleep(1000)
+      backup(socket.assigns[:name], game);
       broadcast_change(socket.assigns[:name], game)
-      {:reply, {:ok, %{"game" => game}}, socket}
+      {:noreply, socket}
     else
       broadcast_change(socket.assigns[:name], game)
-      {:reply, {:ok, %{"game" => game}}, socket}
+      {:noreply, socket}
     end
   end
 
@@ -41,7 +41,7 @@ defmodule MemoryWeb.GamesChannel do
     game = Memory.Game.new()
     backup(socket.assigns[:name], game)
     broadcast_change(socket.assigns[:name], game)
-    {:reply, {:ok, %{"game" => game}}, socket}
+    {:noreply, socket}
   end
 
   # Backups game in MemoryWeb.Backup
