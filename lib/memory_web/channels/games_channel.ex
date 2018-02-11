@@ -12,7 +12,7 @@ defmodule MemoryWeb.GamesChannel do
     if authorized?(payload) do
       game = MemoryWeb.Backup.get_game(name) || Memory.Game.new()
       backup(name, game)
-      socket = assign(socket, :game, game) |> assign(:name, name)
+      socket = assign(socket, :name, name)
       {:ok, %{"join" => name, "game" => game}, socket}
     else
       {:error, %{reason: "unauthorized"}}
@@ -21,21 +21,17 @@ defmodule MemoryWeb.GamesChannel do
 
   # Handles in coming move message, backups updated state.
   def handle_in("move", %{"move" => loc}, socket) do
-    game = Memory.Game.move(socket.assigns[:game], loc)
+    game = Memory.Game.move(getbackup(socket.assigns[:name]), loc)
     backup(socket.assigns[:name], game)
-    broadcast_change(socket.assigns[:name], game)
-    socket = assign(socket, :game, game)
     if game.locked do
       broadcast_change(socket.assigns[:name], game)
       game = Memory.Game.unlock(game)
-      backup(socket.assigns[:name], game)
-      socket = assign(socket, :game, game)
+      backup(socket.assigns[:name], game);
       Process.sleep(1000)
       broadcast_change(socket.assigns[:name], game)
       {:reply, {:ok, %{"game" => game}}, socket}
     else
       broadcast_change(socket.assigns[:name], game)
-      socket = assign(socket, :game, game)
       {:reply, {:ok, %{"game" => game}}, socket}
     end
   end
@@ -49,39 +45,16 @@ defmodule MemoryWeb.GamesChannel do
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
-  # Handles unlocking, and stores new state.
-  def handle_in("unlock", _payload, socket) do
-    game = Memory.Game.unlock(socket.assigns[:game])
-    backup(socket.assigns[:name], game)
-    if game.locked do
-      broadcast_change(socket.assigns[:name], game)
-      game = Memory.Game.unlock(game)
-      backup(socket.assigns[:name], game)
-      socket = assign(socket, :game, game)
-      Process.sleep(1000)
-      broadcast_change(socket.assigns[:name], game)
-      {:reply, {:ok, %{"game" => game}}, socket}
-    else
-      broadcast_change(socket.assigns[:name], game)
-      socket = assign(socket, :game, game)
-      {:reply, {:ok, %{"game" => game}}, socket}
-    end
-  end
-
   # Backups game in MemoryWeb.Backup
   defp backup(name, game) do
     MemoryWeb.Backup.save_game(name, game)
   end
 
-  defp broadcast_change(name, game) do
-    MemoryWeb.Endpoint.broadcast "games:" <> name, "update-state", %{"game" => game}
+  defp getbackup(name) do
+    MemoryWeb.Backup.get_game(name);
   end
 
-  defp broadcast_unlock(name, game) do
-    game = Memory.Game.unlock(game)
-    backup(name, game)
-    Process.sleep(1000)
-    IO.write "broadcast"
+  defp broadcast_change(name, game) do
     MemoryWeb.Endpoint.broadcast "games:" <> name, "update-state", %{"game" => game}
   end
 
