@@ -62,7 +62,7 @@ class MemoryGame extends React.Component {
   updateGame(newState) {
     this.setState(newState.game);
     if (this.state.locked) {
-      unlockGame();
+      this.unlockGame.bind(this);
     }
   }
 
