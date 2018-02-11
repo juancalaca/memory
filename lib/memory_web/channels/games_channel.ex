@@ -34,10 +34,11 @@ defmodule MemoryWeb.GamesChannel do
       Process.sleep(1000)
       backup(socket.assigns[:name], game);
       broadcast_change(socket.assigns[:name], game)
+      {:reply, {:ok, %{"game" => game}}, socket}
     else
       broadcast_change(socket.assigns[:name], game)
+      {:reply, {:ok, %{"game" => game}}, socket}
     end
-    {:reply, {:ok, %{"game" => game}}, socket}
   end
 
   @doc """
