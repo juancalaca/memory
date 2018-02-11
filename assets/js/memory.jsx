@@ -63,6 +63,7 @@ class MemoryGame extends React.Component {
   //socket. If the game state is locked, it will send a message to unlock the
   //game after a period of 1000ms.
   updateGame(newState) {
+    console.log(newState.game);
     this.setState(newState.game);
   }
 
