@@ -60,8 +60,7 @@ class MemoryGame extends React.Component {
 
 
   //Callback function to update state when a new state is received through the
-  //socket. If the game state is locked, it will send a message to unlock the
-  //game after a period of 1000ms.
+  //socket.
   updateGame(newState) {
     this.setState(newState.game);
   }

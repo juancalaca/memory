@@ -19,7 +19,12 @@ defmodule MemoryWeb.GamesChannel do
     end
   end
 
-  # Handles in coming move message, backups updated state.
+  @doc """
+  Handles incoming move message, backups updated game state associated with socket
+  name. Broadcasts the new game state to all users subscribed to channel game:[name].
+  If the game is locked, the locked game is broadcasted to avoid race conditions.
+  The game is then unlocked, backedup, and broadcasted.
+  """
   def handle_in("move", %{"move" => loc}, socket) do
     game = Memory.Game.move(getbackup(socket.assigns[:name]), loc)
     backup(socket.assigns[:name], game)
@@ -29,35 +34,38 @@ defmodule MemoryWeb.GamesChannel do
       Process.sleep(1000)
       backup(socket.assigns[:name], game);
       broadcast_change(socket.assigns[:name], game)
-      {:noreply, socket}
     else
       broadcast_change(socket.assigns[:name], game)
-      {:noreply, socket}
     end
+    {:reply, {:ok, %{"game" => game}}, socket}
   end
 
-  # Handles incoming restart message, amd backups new game state.
+  @doc """
+  Handles incoming restart message, amd backups new game state.
+  """
   def handle_in("restart", _payload, socket) do
     game = Memory.Game.new()
     backup(socket.assigns[:name], game)
     broadcast_change(socket.assigns[:name], game)
-    {:noreply, socket}
+    {:reply, {:ok, %{"game" => game}}, socket}
   end
 
-  # Backups game in MemoryWeb.Backup
+  # Backups game in MemoryWeb.Backup Agent
   defp backup(name, game) do
     MemoryWeb.Backup.save_game(name, game)
   end
 
+  # Gets backup from Backup Agent
   defp getbackup(name) do
     MemoryWeb.Backup.get_game(name);
   end
 
+  # Broadcasts message to all clients subsrcibed to "game:name" channel
   defp broadcast_change(name, game) do
     MemoryWeb.Endpoint.broadcast "games:" <> name, "update-state", %{"game" => game}
   end
 
-  # Add authorization logic here as required.
+  # All users are registered per design choice
   defp authorized?(_payload) do
     true
   end

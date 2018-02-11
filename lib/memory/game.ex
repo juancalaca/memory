@@ -27,10 +27,9 @@ defmodule Memory.Game do
     }
   end
 
-  @doc """
-  Setups up a list of tiles, where a tile is map describing value, if selected,
-  and if found. Values constrained to letters.
-  """
+
+  # Setups up a list of tiles, where a tile is map describing value, if selected,
+  # and if found. Values constrained to letters.
   defp setup_tiles() do
     letters = ~w(A A B B C C D D E E F F G G H H)
     Enum.shuffle(letters)
@@ -62,21 +61,18 @@ defmodule Memory.Game do
     end
   end
 
-  @doc """
-  Returns true if all tiles found, false otherwise
-  """
+
+  # Returns true if all tiles found, false otherwise
   defp all_tiles_found(state) do
     Enum.all?(state.tiles, fn tile ->
       tile.found == true
     end)
   end
 
-  @doc """
-  Updates tiles according to currently selected card and the current state of
-  the game. Implements delay of game when match is not found.
-
-  returns an updated version of the tiles' state depending on selection
-  """
+  #Updates tiles according to currently selected card and the current state of
+  #the game. Implements delay of game when match is not found.
+  #
+  # returns an updated version of the tiles' state depending on selection
   defp update_tiles(state, loc) do
     selected_tile = Enum.at(state.tiles, loc) |> Map.put(:selected, true)
     if state.prev_tile != nil do
@@ -96,11 +92,8 @@ defmodule Memory.Game do
     end
   end
 
-
-  @doc """
-  Handles matches, if prev_tile == nil -> the first pair return location,
-  otherwise pair made, return nil
-  """
+  # Handles matches, if prev_tile == nil -> the first pair return location,
+  # otherwise pair made, return nil
   defp get_prev(state, loc) do
     if state.prev_tile == nil do
       loc
