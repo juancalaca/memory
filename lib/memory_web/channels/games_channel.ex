@@ -22,8 +22,8 @@ defmodule MemoryWeb.GamesChannel do
   # Handles in coming move message, backups updated state.
   def handle_in("move", %{"move" => loc}, socket) do
     game = Memory.Game.move(socket.assigns[:game], loc)
-    MemoryWeb.Endpoint.broadcast "games:" <> socket.assigns[:name], "update-state", %{}
     backup(socket.assigns[:name], game)
+    broadcast_change(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{"game" => game}}, socket}
   end
@@ -32,6 +32,7 @@ defmodule MemoryWeb.GamesChannel do
   def handle_in("restart", _payload, socket) do
     game = Memory.Game.new()
     backup(socket.assigns[:name], game)
+    broadcast_change(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{"game" => game}}, socket}
   end
@@ -40,6 +41,7 @@ defmodule MemoryWeb.GamesChannel do
   def handle_in("unlock", _payload, socket) do
     game = Memory.Game.unlock(socket.assigns[:game])
     backup(socket.assigns[:name], game)
+    broadcast_change(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{"game" => game}}, socket}
   end
@@ -47,6 +49,10 @@ defmodule MemoryWeb.GamesChannel do
   # Backups game in MemoryWeb.Backup
   defp backup(name, game) do
     MemoryWeb.Backup.save_game(name, game)
+  end
+
+  defp broadcast_change(name, game) do
+    MemoryWeb.Endpoint.broadcast "games:" <> name, "update-state", %{"game" => game}
   end
 
   # Add authorization logic here as required.
