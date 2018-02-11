@@ -6,7 +6,6 @@ defmodule MemoryWeb.Backup do
   """
 
   def start_link(initial_state) do
-    IO.write "hello"
     Agent.start_link(fn -> initial_state end, name: __MODULE__)
   end
 
