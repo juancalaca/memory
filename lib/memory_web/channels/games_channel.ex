@@ -25,7 +25,7 @@ defmodule MemoryWeb.GamesChannel do
     game = Memory.Game.move(socket.assigns[:game], loc)
     backup(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
-    broadcast! sock, "state-update", %{"game" => game}
+    MemoryWeb.Endpoint.broadcast! sock, "state-update", %{"game" => game}
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
@@ -35,7 +35,7 @@ defmodule MemoryWeb.GamesChannel do
     game = Memory.Game.new()
     backup(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
-    broadcast! sock, "state-update", %{"game" => game}
+    MemoryWeb.Endpoint.broadcast! sock, "state-update", %{"game" => game}
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
@@ -45,7 +45,7 @@ defmodule MemoryWeb.GamesChannel do
     game = Memory.Game.unlock(socket.assigns[:game])
     backup(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
-    broadcast! sock, "state-update", %{"game" => game}
+    MemoryWeb.Endpoint.broadcast! sock, "state-update", %{"game" => game}
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
