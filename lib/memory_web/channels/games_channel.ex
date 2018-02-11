@@ -22,7 +22,7 @@ defmodule MemoryWeb.GamesChannel do
   # Handles in coming move message, backups updated state.
   def handle_in("move", %{"move" => loc}, socket) do
     game = Memory.Game.move(socket.assigns[:game], loc)
-    MemoryWeb.Endpoint.broadcast socket.assigns["name"], "update-state", %{}
+    MemoryWeb.Endpoint.broadcast socket.assigns[:name], "update-state", %{}
     backup(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{"game" => game}}, socket}
