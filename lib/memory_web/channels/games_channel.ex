@@ -25,6 +25,9 @@ defmodule MemoryWeb.GamesChannel do
     backup(socket.assigns[:name], game)
     broadcast_change(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
+    if game.locked do
+      broadcast_unlock(socket.assigns[:name], game)
+    end
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
@@ -52,6 +55,13 @@ defmodule MemoryWeb.GamesChannel do
   end
 
   defp broadcast_change(name, game) do
+    MemoryWeb.Endpoint.broadcast "games:" <> name, "update-state", %{"game" => game}
+  end
+
+  defp broadcast_unlock(name, game) do
+    game = Memory.Game.unlock(socket.assigns[:game])
+    backup(name, game)
+    Process.sleep(1000)
     MemoryWeb.Endpoint.broadcast "games:" <> name, "update-state", %{"game" => game}
   end
 
