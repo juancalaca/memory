@@ -62,6 +62,7 @@ defmodule MemoryWeb.GamesChannel do
     game = Memory.Game.unlock(game)
     backup(name, game)
     Process.sleep(1000)
+    IO.write "broadcast"
     MemoryWeb.Endpoint.broadcast "games:" <> name, "update-state", %{"game" => game}
   end
 
