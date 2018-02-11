@@ -28,11 +28,11 @@ defmodule Memory.Game do
   end
 
   @doc """
-  Setups up a list of tiles, where a tile is map describing
+  Setups up a list of tiles, where a tile is map describing value, if selected,
+  and if found. Values constrained to letters.
   """
   def setup_tiles() do
     letters = ~w(A A B B C C D D E E F F G G H H)
-
     Enum.shuffle(letters)
     |> Enum.map(fn letter ->
       %{
@@ -43,6 +43,12 @@ defmodule Memory.Game do
     end)
   end
 
+  @doc """
+  On click handler that updates the game according to the current state and
+  currently selected card described by "loc". If all tiles are found the game
+  will not update until restart button is hit. If the game is locked, the game
+  will not update. Checks if locked to minimize race conditions.
+  """
   def move(state, loc) do
     if all_tiles_found(state) || state.locked do
       state
@@ -56,12 +62,21 @@ defmodule Memory.Game do
     end
   end
 
+  @doc """
+  Returns true if all tiles found, false otherwise
+  """
   def all_tiles_found(state) do
     Enum.all?(state.tiles, fn tile ->
       tile.found == true
     end)
   end
 
+  @doc """
+  Updates tiles according to currently selected card and the current state of
+  the game. Implements delay of game when match is not found.
+
+  returns an updated version of the tiles' state depending on selection
+  """
   def update_tiles(state, loc) do
     selected_tile = Enum.at(state.tiles, loc) |> Map.put(:selected, true)
     if state.prev_tile != nil do
@@ -81,6 +96,11 @@ defmodule Memory.Game do
     end
   end
 
+
+  @doc """
+  Handles matches, if prev_tile == nil -> the first pair return location,
+  otherwise pair made, return nil
+  """
   def get_prev(state, loc) do
     if state.prev_tile == nil do
       loc
@@ -89,6 +109,9 @@ defmodule Memory.Game do
     end
   end
 
+  @doc """
+
+  """
   def unlock(state) do
     state = Map.put(state, :locked, false)
     updated_tiles = Enum.map(state.tiles, fn tile ->
