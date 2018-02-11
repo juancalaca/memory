@@ -53,6 +53,9 @@ class MemoryGame extends React.Component {
     this.channel.join()
       .receive("ok", this.updateGame.bind(this))
       .receive("error", resp => { console.log("Unable to join", resp); });
+
+    //Listen to broadcast
+    this.channel.on("update-state", this.updateGame.bind(this));
   }
 
 

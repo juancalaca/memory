@@ -31,7 +31,7 @@ defmodule Memory.Game do
   Setups up a list of tiles, where a tile is map describing value, if selected,
   and if found. Values constrained to letters.
   """
-  def setup_tiles() do
+  defp setup_tiles() do
     letters = ~w(A A B B C C D D E E F F G G H H)
     Enum.shuffle(letters)
     |> Enum.map(fn letter ->
@@ -65,7 +65,7 @@ defmodule Memory.Game do
   @doc """
   Returns true if all tiles found, false otherwise
   """
-  def all_tiles_found(state) do
+  defp all_tiles_found(state) do
     Enum.all?(state.tiles, fn tile ->
       tile.found == true
     end)
@@ -77,7 +77,7 @@ defmodule Memory.Game do
 
   returns an updated version of the tiles' state depending on selection
   """
-  def update_tiles(state, loc) do
+  defp update_tiles(state, loc) do
     selected_tile = Enum.at(state.tiles, loc) |> Map.put(:selected, true)
     if state.prev_tile != nil do
       prev_tile = Enum.at(state.tiles, state.prev_tile)
@@ -101,7 +101,7 @@ defmodule Memory.Game do
   Handles matches, if prev_tile == nil -> the first pair return location,
   otherwise pair made, return nil
   """
-  def get_prev(state, loc) do
+  defp get_prev(state, loc) do
     if state.prev_tile == nil do
       loc
     else
@@ -110,7 +110,7 @@ defmodule Memory.Game do
   end
 
   @doc """
-
+  Unlocks game by unselecting all cards and setting locked to false.
   """
   def unlock(state) do
     state = Map.put(state, :locked, false)
