@@ -64,13 +64,6 @@ class MemoryGame extends React.Component {
   //game after a period of 1000ms.
   updateGame(newState) {
     this.setState(newState.game);
-    if (this.state.locked) {
-      _.delay(() => {
-        this.channel.push("unlock", {})
-            .receive("ok", this.updateGame.bind(this))
-            .receive("error", resp => { console.log("Unable to unlock", resp); });
-      }, 1000);
-    }
   }
 
   //Click handler function that sends a message to the server containing the
