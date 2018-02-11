@@ -26,9 +26,18 @@ defmodule MemoryWeb.GamesChannel do
     broadcast_change(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
     if game.locked do
-      broadcast_unlock(socket.assigns[:name], game)
+      broadcast_change(socket.assigns[:name], game)
+      game = Memory.Game.unlock(game)
+      backup(socket.assigns[:name], game)
+      socket = assign(socket, :game, game)
+      Process.sleep(1000)
+      broadcast_change(socket.assigns[:name], game)
+      {:reply, {:ok, %{"game" => game}}, socket}
+    else
+      broadcast_change(socket.assigns[:name], game)
+      socket = assign(socket, :game, game)
+      {:reply, {:ok, %{"game" => game}}, socket}
     end
-    {:reply, {:ok, %{"game" => game}}, socket}
   end
 
   # Handles incoming restart message, amd backups new game state.
