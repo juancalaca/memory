@@ -2,7 +2,7 @@
 
 <div id="game">
   <div class="row">
-    <div class="col-3">
+    <div class="col-md-4">
       <h1 id="index-page">Join A Game</h1>
       <div class="form-group">
         <form onsubmit="this.action='/game/'+document.getElementById('game-name').value;" method="get">
