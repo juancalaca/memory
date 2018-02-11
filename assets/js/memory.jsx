@@ -70,7 +70,7 @@ class MemoryGame extends React.Component {
   unlockGame() {
     _.delay(() => {
       this.channel.push("unlock", {})
-          .receive("ok", this.updateGame.bind(this));
+          .receive("ok", this.updateGame.bind(this))
           .receive("error", resp => { console.log("Unable to unlock", resp); });
     }, 1000);
   }
@@ -84,14 +84,14 @@ class MemoryGame extends React.Component {
     }
 
     this.channel.push("move", { move: loc })
-        .receive("ok", this.updateGame.bind(this));
+        .receive("ok", this.updateGame.bind(this))
         .receive("error", resp => { console.log("Unable to send move", resp); });
   }
 
   //Sends restart message to reset game to initial conditions.
   resetGame() {
     this.channel.push("restart", {})
-        .receive("ok", this.updateGame.bind(this));
+        .receive("ok", this.updateGame.bind(this))
         .receive("error", resp => { console.log("Unable to reset game.", resp); });
   }
 
