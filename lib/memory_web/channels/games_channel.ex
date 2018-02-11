@@ -41,7 +41,6 @@ defmodule MemoryWeb.GamesChannel do
     game = Memory.Game.new()
     backup(socket.assigns[:name], game)
     broadcast_change(socket.assigns[:name], game)
-    socket = assign(socket, :game, game)
     {:reply, {:ok, %{"game" => game}}, socket}
   end
 
