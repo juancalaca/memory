@@ -44,9 +44,19 @@ defmodule MemoryWeb.GamesChannel do
   def handle_in("unlock", _payload, socket) do
     game = Memory.Game.unlock(socket.assigns[:game])
     backup(socket.assigns[:name], game)
-    broadcast_change(socket.assigns[:name], game)
-    socket = assign(socket, :game, game)
-    {:reply, {:ok, %{"game" => game}}, socket}
+    if game.locked do
+      broadcast_change(socket.assigns[:name], game)
+      game = Memory.Game.unlock(game)
+      backup(socket.assigns[:name], game)
+      socket = assign(socket, :game, game)
+      Process.sleep(1000)
+      broadcast_change(socket.assigns[:name], game)
+      {:reply, {:ok, %{"game" => game}}, socket}
+    else
+      broadcast_change(socket.assigns[:name], game)
+      socket = assign(socket, :game, game)
+      {:reply, {:ok, %{"game" => game}}, socket}
+    end
   end
 
   # Backups game in MemoryWeb.Backup
