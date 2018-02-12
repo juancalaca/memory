@@ -2,7 +2,10 @@ defmodule MemoryWeb.GamesChannel do
   use MemoryWeb, :channel
   @moduledoc """
   This module handles incoming messages to GamesChannel. Uses MemoryWeb.Backup
-  to retrieve and store name, game pairs.
+  to retrieve and store name, game pairs. This channel makes sure that all users
+  subscribed to the same channel (in same game name) get updates as to prevent
+  race conditions in messages reaching the server, and provide real-time updates
+  All clients are listening to "state-update" messages. 
   """
 
   @doc """
