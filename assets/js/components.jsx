@@ -3,21 +3,25 @@ import React from 'react';
 //Functional component that renders a tile using the props and handles the click
 //events.
 export function Tile(props) {
-  let loc = props.loc;
+  
+  function handleClick(ev) {
+    props.click($(ev.target).attr("loc"));
+  }
+  
   let cardStyle;
-  let value = props.value;
   if (props.selected && !props.found) {
     cardStyle = "bg-danger";
   } else if (props.found) {
     cardStyle = "bg-success";
   } else {
     cardStyle = "bg-dark";
-    value= " ";
   }
+  
+  let value = !props.selected && !props.found ? " " : props.value;
 
   return (
     <div className="col-3" >
-      <div className={"tile card " + cardStyle} onClick={() => props.click(loc)}>
+      <div className={"tile card " + cardStyle} onClick={handleClick} loc={props.loc}>
         {value}
       </div>
     </div>
