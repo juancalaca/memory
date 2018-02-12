@@ -1,5 +1,9 @@
 # Memory
 
+## Design
+
+The index page for this web application displays a form. The purpose of this form is to specify the name of the game to be created, or if one already exists to join the according game. This application supports simultaneous games with different names, and consecuentially different game states. The approach to store game name pairs was to create an agent that holds backups of game name pairs. This app currently supports real-time updates to all users subscribed to the same game name. This was done by broadcasting state changes associated to that game name. Two checks where enforced to prevent race conditions during the time out. The Memory.Game module returns the state if the game state passed is locked; in the client-side, the lock was enforced to prevent that further messages reach the server and modify the state.
+
 ## Development Instructions
 
 Prerequisites:
