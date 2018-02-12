@@ -1,8 +1,18 @@
 <h1>Memory Game</h1>
 
 <div id="game">
-  Loading...
+  <div class="row">
+    <div class="col-md-5">
+      <h1 id="index-page">Join A Game</h1>
+      <div class="form-group">
+        <form onsubmit="this.action='/game/'+document.getElementById('game-name').value;" method="get">
+          <label for="game-name">Please input game name:</label>
+          <input type="text" class="form-control" id="game-name" placeholder="Game Name">
+          <div>
+            <button type="submit" class="btn btn-primary">Start Game</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-
-
-
